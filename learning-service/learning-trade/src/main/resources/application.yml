@@ -1,0 +1,30 @@
+server:
+  port: 8440
+spring:
+  application:
+    name: trade-service
+  datasource:
+    url: jdbc:mysql://localhost/learning?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 147258
+  jackson:
+    default-property-inclusion: non_null
+    date-format: yyyy-MM-dd HH:mm
+    time-zone: GMT+8
+  cloud:
+    nacos:
+      server-addr: 192.168.150.101:8848
+      discovery:
+        namespace: 0196a48b-5ba6-4544-ace2-cec9e2da72ca
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+alipay:
+  protocol: https
+  gatewayHost:
+  appId:
+  signType: RSA2
+  merchantPrivateKey:
+  alipayPublicKey:
+gateway:
+  protocol: http
+  host: 127.0.0.1:8080

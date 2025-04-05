@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.linter.learning.course.dao.CourseDao">
+
+    <resultMap type="cn.linter.learning.course.entity.Course" id="CourseMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="price" column="price"/>
+        <result property="description" column="description"/>
+        <result property="averageScore" column="average_score"/>
+        <result property="coverPicture" column="cover_picture"/>
+        <result property="approved" column="approved"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <association property="teacher" javaType="cn.linter.learning.course.entity.User">
+            <id property="id" column="uid"/>
+            <result property="username" column="username"/>
+            <result property="fullName" column="full_name"/>
+            <result property="profilePicture" column="profile_picture"/>
+        </association>
+    </resultMap>
+
+    <!--通过ID查询单个-->
+    <select id="selectById" resultMap="CourseMap">
+        select c.id,
+               c.name,
+               c.price,
+               c.description,
+               c.user_name,
+               c.average_score,
+               c.cover_picture,
+               c.approved,
+               c.create_time,
+               c.update_time,
+               u.id uid,
+               u.username,
+               u.full_name,
+               u.profile_picture
+        from course c
+                 join user u on c.user_name = u.username
+        where c.id = #{id}
+    </select>
+
+    <!--查询所有-->
+    <select id="list" resultMap="CourseMap">
+        select c.id,
+               c.name,
+               c.price,
+               c.description,
+               c.user_name,
+               c.average_score,
+               c.cover_picture,
+               c.approved,
+               c.create_time,
+               c.update_time,
+               u.id uid,
+               u.username,
+               u.full_name,
+               u.profile_picture
+        from course c
+                 join user u
+                      on c.user_name = u.username
+        <where>
+            <if test="approved">
+                c.approved = true
+            </if>
+        </where>
+        order by ${orderBy} desc
+    </select>
+
+    <!--通过教师用户名分页查询所有课程-->
+    <select id="listByTeacherName" resultMap="CourseMap">
+        select c.id,
+               c.name,
+               c.price,
+               c.description,
+               c.user_name,
+               c.average_score,
+               c.cover_picture,
+               c.approved,
+               c.create_time,
+               c.update_time,
+               u.id uid,
+               u.username,
+               u.full_name,
+               u.profile_picture
+        from course c
+                 join user u
+                      on c.user_name = u.username
+        where c.user_name = #{teacherName}
+    </select>
+
+    <!--通过学生用户名分页查询所有课程-->
+    <select id="listByStudentName" resultMap="CourseMap">
+        select c.id,
+               c.name,
+               c.price,
+               c.description,
+               c.user_name,
+               c.average_score,
+               c.cover_picture,
+               c.approved,
+               c.create_time,
+               c.update_time,
+               u.id uid,
+               u.username,
+               u.full_name,
+               u.profile_picture
+        from course c
+                 join user u
+                      on c.user_name = u.username
+                 join user_course uc
+                      on c.id = uc.course_id
+        where uc.user_name = #{studentName}
+          and c.approved = true
+    </select>
+
+    <!--通过分类ID分页查询所有课程-->
+    <select id="listByCategoryId" resultMap="CourseMap">
+        select c.id,
+               c.name,
+               c.price,
+               c.description,
+               c.user_name,
+               c.average_score,
+               c.cover_picture,
+               c.approved,
+               c.create_time,
+               c.update_time,
+               u.id uid,
+               u.username,
+               u.full_name,
+               u.profile_picture
+        from course c
+                 join user u
+                      on c.user_name = u.username
+                 join category_course cc
+                      on c.id = cc.course_id
+        where cc.category_id = #{categoryId}
+          and c.approved = true
+        order by ${orderBy} desc
+    </select>
+
+    <!--通过ID查询分类列表-->
+    <select id="listCategoryById" resultMap="cn.linter.learning.course.dao.CategoryDao.CategoryMap">
+        select c.id, c.name
+        from category c
+                 join category_course cc on c.id = cc.category_id
+        where cc.course_id = #{id}
+    </select>
+
+    <!--插入单个-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into course(name, price, description, user_name, average_score, cover_picture, approved,
+                           create_time, update_time)
+        values (#{name}, #{price}, #{description}, #{teacher.username}, #{averageScore}, #{coverPicture},
+                #{approved}, #{createTime}, #{updateTime})
+    </insert>
+
+    <!--更新-->
+    <update id="update">
+        update course
+        set
+        <if test="name != null and name != ''">
+            name = #{name},
+        </if>
+        <if test="price != null">
+            price = #{price},
+        </if>
+        <if test="description != null and description != ''">
+            description = #{description},
+        </if>
+        <if test="teacher != null">
+            user_name = #{teacher.username},
+        </if>
+        <if test="averageScore != null">
+            average_score = #{averageScore},
+        </if>
+        <if test="coverPicture != null and coverPicture != ''">
+            cover_picture = #{coverPicture},
+        </if>
+        <if test="approved != null">
+            approved = #{approved},
+        </if>
+        update_time = #{updateTime}
+        where id = #{id}
+    </update>
+
+    <!--删除-->
+    <delete id="delete">
+        delete
+        from course
+        where id = #{id}
+    </delete>
+
+    <!--查询用户-课程关系-->
+    <select id="selectRegistration" resultType="Boolean">
+        select count(*) > 0
+        from user_course
+        where user_name = #{username}
+          and course_id = #{courseId}
+    </select>
+
+    <!--插入用户-课程关系-->
+    <insert id="insertRegistration">
+        insert into user_course(user_name, course_id)
+        values (#{username}, #{courseId})
+    </insert>
+
+    <!--为课程插入分类-->
+    <insert id="insertCategory">
+        insert into category_course(course_id, category_id )
+        values
+        <foreach collection="categories" item="category" separator=",">
+            (#{courseId}, #{category.id})
+        </foreach>
+    </insert>
+
+    <!--删除课程的分类-->
+    <delete id="deleteCategory">
+        delete
+        from category_course
+        where course_id = #{courseId}
+    </delete>
+
+</mapper>

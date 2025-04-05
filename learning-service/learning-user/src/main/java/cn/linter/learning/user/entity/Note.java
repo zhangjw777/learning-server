@@ -1,0 +1,47 @@
+package cn.linter.learning.user.entity;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+/**
+ * 笔记实体类
+ *
+ * @author 张家伟
+ * @since 2025/04/04
+ */
+@Data
+@ToString
+@EqualsAndHashCode
+public class Note implements Serializable {
+
+    private static final long serialVersionUID = -3632799509145935611L;
+    /**
+     * 笔记ID
+     */
+    private Long id;
+    /**
+     * 内容
+     */
+    private String content;
+    /**
+     * 作者
+     */
+    private User author;
+    /**
+     * 课程ID
+     */
+    private Long courseId;
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createTime;
+    /**
+     * 更新时间
+     */
+    private LocalDateTime updateTime;
+
+}

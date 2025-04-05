@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.linter.learning.trade.dao.OrderDao">
+
+    <resultMap type="cn.linter.learning.trade.entity.Order" id="OrderMap">
+        <result property="id" column="id"/>
+        <result property="tradeNo" column="trade_no"/>
+        <result property="price" column="price"/>
+        <result property="username" column="user_name"/>
+        <result property="productId" column="product_id"/>
+        <result property="productName" column="product_name"/>
+        <result property="closeMilliseconds" column="close_milliseconds"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <!--通过ID查询单个订单-->
+    <select id="selectById" resultMap="OrderMap">
+        select id,
+               trade_no,
+               price,
+               user_name,
+               product_id,
+               product_name,
+               close_milliseconds,
+               create_time,
+               update_time,
+               status
+        from `order`
+        where id = #{id}
+    </select>
+
+    <!--通过交易编号查询单个订单-->
+    <select id="selectByTradeNo" resultMap="OrderMap">
+        select id,
+               trade_no,
+               price,
+               user_name,
+               product_id,
+               product_name,
+               close_milliseconds,
+               create_time,
+               update_time,
+               status
+        from `order`
+        where trade_no = #{tradeNo}
+    </select>
+
+    <!--通过用户名和商品ID查询单个订单-->
+    <select id="queryUnpaidByUsernameAndProductId" resultMap="OrderMap">
+        select id,
+               trade_no,
+               price,
+               user_name,
+               product_id,
+               product_name,
+               close_milliseconds,
+               create_time,
+               update_time,
+               status
+        from `order`
+        where user_name = #{username}
+          and product_id = #{productId}
+          and status = 0
+    </select>
+
+    <!--查询所有订单-->
+    <select id="list" resultMap="OrderMap">
+        select id,
+               trade_no,
+               price,
+               user_name,
+               product_id,
+               product_name,
+               close_milliseconds,
+               create_time,
+               update_time,
+               status
+        from `order`
+    </select>
+
+    <!--查询所有未支付订单-->
+    <select id="listUnpaid" resultMap="OrderMap">
+        select id,
+               trade_no,
+               price,
+               user_name,
+               product_id,
+               product_name,
+               close_milliseconds,
+               create_time,
+               update_time,
+               status
+        from `order`
+        where status = 0
+    </select>
+
+    <!--插入单个订单-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into `order`(trade_no, price, user_name, product_id, product_name, close_milliseconds,
+                            create_time, update_time, status)
+        values (#{tradeNo}, #{price}, #{username}, #{productId}, #{productName}, #{closeMilliseconds},
+                #{createTime}, #{updateTime}, #{status})
+    </insert>
+
+    <!--更新订单-->
+    <update id="update">
+        update `order`
+        set
+            <if test="status != null">
+                status = #{status},
+            </if>
+        update_time = #{updateTime}
+        where id = #{id}
+    </update>
+
+    <!--删除订单-->
+    <delete id="delete">
+        delete
+        from `order`
+        where id = #{id}
+    </delete>
+
+</mapper>
