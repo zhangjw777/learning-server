@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * 用户服务接口
  *
  * @author 张家伟
- * @since 2025/04/04
+ * @since 2025/04/05
  */
 @FeignClient("user-service")
 public interface UserClient {

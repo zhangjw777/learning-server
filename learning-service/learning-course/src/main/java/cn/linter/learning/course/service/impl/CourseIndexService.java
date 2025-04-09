@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * es课程索引服务
+ */
 @Service
 public class CourseIndexService {
     private static final Logger log = LoggerFactory.getLogger(CourseIndexService.class);

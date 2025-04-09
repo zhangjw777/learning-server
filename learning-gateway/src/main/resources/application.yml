@@ -76,7 +76,7 @@ spring:
                 - /api/profile-pictures/**  # 头像图片路径
 
         - id: dfs  # 分布式文件系统路由
-          uri: http://localhost:9000  # 直接指向MinIO等存储服务
+          uri: http://192.168.150.101:9000  # 直接指向MinIO等存储服务
           predicates:
             - name: Path
               args:

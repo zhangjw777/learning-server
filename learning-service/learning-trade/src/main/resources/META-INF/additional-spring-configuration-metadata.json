@@ -8,7 +8,7 @@
     {
       "name": "alipay.gatewayHost",
       "type": "java.lang.String",
-      "description": "网关."
+      "description": "支付宝网关."
     },
     {
       "name": "alipay.appId",

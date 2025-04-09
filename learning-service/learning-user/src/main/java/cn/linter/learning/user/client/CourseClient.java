@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface CourseClient {
 
     /**
-     * 通过学会用户名查询课程
+     * 通过学生用户名查询课程
      *
      * @param pageNum     页码
      * @param pageSize    页大小

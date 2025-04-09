@@ -56,6 +56,23 @@
                  join role r
                       on u.role_id = r.id
     </select>
+    <select id="selectByUserId" resultMap="UserMap">
+        select u.id,
+               u.username,
+               u.full_name,
+               u.gender,
+               u.role_id,
+               u.email_address,
+               u.phone_number,
+               u.profile_picture,
+               u.create_time,
+               u.update_time,
+               r.name role_name
+        from user u
+                 join role r
+                      on u.role_id = r.id
+        where u.id = #{id}
+    </select>
 
     <!--新增用户-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
@@ -94,7 +111,7 @@
             profile_picture = #{profilePicture},
         </if>
         update_time = #{updateTime}
-        where username = #{username}
+        where id = #{id}
     </update>
 
     <!--删除用户-->

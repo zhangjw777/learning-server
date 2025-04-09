@@ -24,5 +24,7 @@ spring:
 #      # password: your_password
 mybatis:
   mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 pagehelper:
   page-size-zero: true

@@ -18,6 +18,8 @@ spring:
         namespace: 0196a48b-5ba6-4544-ace2-cec9e2da72ca
 mybatis:
   mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 alipay:
   protocol: https
   gatewayHost:
