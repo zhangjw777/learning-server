@@ -13,8 +13,8 @@ spring:
 security:
   oauth2:
     client:
-      client-id: linter
-      client-secret: linter
+      client-id: learning
+      client-secret: learning
       authorized-grant-types: password
       access-token-validity-seconds: 864000
       scope: all
@@ -23,5 +23,5 @@ security:
       token-key-access: permitAll()
       jwt:
         key-store: classpath:jwt.jks
-        key-store-password: linter
+        key-store-password: learning
         key-alias: jwt
