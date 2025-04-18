@@ -56,6 +56,7 @@ create table course
     average_score tinyint not null comment '平均评分',
     cover_picture varchar(100) not null comment '封面图片地址',
     approved tinyint not null comment '审核通过',
+    category_id int not null comment '分类ID',
     create_time datetime not null comment '创建时间',
     update_time datetime not null comment '修改时间'
 )

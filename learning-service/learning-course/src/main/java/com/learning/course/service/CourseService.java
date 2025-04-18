@@ -86,7 +86,7 @@ public interface CourseService {
      * 新增课程
      *
      * @param course   课程实例
-     * @param username 用户名
+     * @param username 课程老师用户名
      * @return 课程实例
      */
     Course create(Course course, String username);

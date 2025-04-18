@@ -10,6 +10,7 @@
         <result property="averageScore" column="average_score"/>
         <result property="coverPicture" column="cover_picture"/>
         <result property="approved" column="approved"/>
+        <result property="categoryId" column="category_id"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
         <association property="teacher" javaType="com.learning.course.entity.User">
@@ -32,6 +33,7 @@
                c.approved,
                c.create_time,
                c.update_time,
+                c.category_id,
                u.id uid,
                u.username,
                u.full_name,
@@ -44,22 +46,23 @@
     <!--查询所有-->
     <select id="list" resultMap="CourseMap">
         select c.id,
-               c.name,
-               c.price,
-               c.description,
-               c.user_name,
-               c.average_score,
-               c.cover_picture,
-               c.approved,
-               c.create_time,
-               c.update_time,
-               u.id uid,
-               u.username,
-               u.full_name,
-               u.profile_picture
+        c.name,
+        c.price,
+        c.description,
+        c.user_name,
+        c.average_score,
+        c.cover_picture,
+        c.approved,
+        c.category_id,
+        c.create_time,
+        c.update_time,
+        u.id uid,
+        u.username,
+        u.full_name,
+        u.profile_picture
         from course c
-                 join user u
-                      on c.user_name = u.username
+        join user u
+        on c.user_name = u.username
         <where>
             <if test="approved">
                 c.approved = true
@@ -151,10 +154,10 @@
 
     <!--插入单个-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into course(name, price, description, user_name, average_score, cover_picture, approved,
+        insert into course(name, price, description, user_name, average_score, cover_picture, approved,category_id,
                            create_time, update_time)
         values (#{name}, #{price}, #{description}, #{teacher.username}, #{averageScore}, #{coverPicture},
-                #{approved}, #{createTime}, #{updateTime})
+                #{approved}, #{categoryId},#{createTime}, #{updateTime})
     </insert>
 
     <!--更新-->
@@ -182,6 +185,9 @@
         <if test="approved != null">
             approved = #{approved},
         </if>
+        <if test="categoryId!=null">
+            category_id = #{categoryId},
+        </if>
         update_time = #{updateTime}
         where id = #{id}
     </update>
@@ -194,7 +200,7 @@
     </delete>
 
     <!--查询用户-课程关系-->
-    <select id="selectRegistration" resultType="Boolean">
+    <select id="selectRegistration" resultType="java.lang.Boolean">
         select count(*) > 0
         from user_course
         where user_name = #{username}

@@ -98,7 +98,6 @@ public class CourseServiceImpl implements CourseService {
         course.setCreateTime(now);
         course.setUpdateTime(now);
         courseDao.insert(course);
-        courseDao.insertCategory(course.getId(), course.getCategories());
         courseSearchDao.save(course);
         return course;
     }
@@ -108,11 +107,6 @@ public class CourseServiceImpl implements CourseService {
         course.setUpdateTime(LocalDateTime.now());
         int rows = courseDao.update(course);
         System.out.println(rows);
-        List<Category> categories = course.getCategories();
-        if (categories != null && !categories.isEmpty()) {
-            courseDao.deleteCategory(course.getId());
-            courseDao.insertCategory(course.getId(), categories);
-        }
         Course newCourse = courseDao.selectById(course.getId());
         courseSearchDao.deleteById(course.getId());
         courseSearchDao.save(newCourse);

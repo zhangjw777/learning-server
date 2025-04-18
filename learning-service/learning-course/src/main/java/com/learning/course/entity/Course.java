@@ -83,10 +83,9 @@ public class Course implements Serializable {
     @Transient
     private LocalDateTime updateTime;
     /**
-     * 分类列表
+     * 分类id
      */
-    @Transient
-    private List<Category> categories;
+    private Integer categoryId;
     @Transient
     private Integer viewCounts;
 

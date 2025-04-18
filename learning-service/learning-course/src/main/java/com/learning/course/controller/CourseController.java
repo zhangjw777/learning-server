@@ -8,6 +8,7 @@ import com.learning.course.entity.*;
 import com.learning.course.service.*;
 import com.github.pagehelper.PageInfo;
 import com.learning.course.service.impl.CourseViewsServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
  * @author 张家伟
  * @since 2025/04/04
  */
+@Slf4j
 @RestController
 @RequestMapping("courses")
 public class CourseController {
@@ -41,18 +43,15 @@ public class CourseController {
 
     @GetMapping("{id}")
     public Result<Course> queryCourse(@PathVariable("id") Long id, @RequestHeader(value = "Authorization", required = false) String token) {
+        Course course;
         if (token == null) {
-            Course course = courseService.queryById(id);
-            courseViewsService.incrementViewCount(course);
-            course.setViewCounts(courseViewsService.queryViewCountsOfCourse(course));
-            return Result.of(ResultStatus.SUCCESS, course);
+            course = courseService.queryById(id);
+        } else {
+            course = courseService.queryByIdAndName(id, JwtUtil.getUsername(token));
         }
-        return Result.of(ResultStatus.SUCCESS, courseService.queryByIdAndName(id, JwtUtil.getUsername(token)));
-    }
-
-    @GetMapping("{id}/categories")
-    public Result<List<Category>> listCategoriesOfCourse(@PathVariable("id") Long id) {
-        return Result.of(ResultStatus.SUCCESS, courseService.listCategoryById(id));
+        courseViewsService.incrementViewCount(course);
+        course.setViewCounts(courseViewsService.queryViewCountsOfCourse(course));
+        return Result.of(ResultStatus.SUCCESS, course);
     }
 
     @GetMapping("{id}/chapters")
@@ -123,6 +122,7 @@ public class CourseController {
 
     @PutMapping
     public Result<Course> updateCourse(@RequestBody Course course, @RequestHeader(value = "Authorization") String token, @RequestParam(required = false) String username) {
+        log.info("update course: {}", course);
         return Result.of(ResultStatus.SUCCESS, courseService.update(course));
     }
 
