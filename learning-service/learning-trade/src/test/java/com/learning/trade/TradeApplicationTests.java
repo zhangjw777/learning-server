@@ -1,4 +1,4 @@
-package cn.linter.learning.trade;
+package com.learning.trade;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package cn.linter.learning.trade.config;
+package com.learning.trade.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

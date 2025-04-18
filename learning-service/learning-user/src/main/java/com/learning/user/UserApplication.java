@@ -1,4 +1,4 @@
-package cn.linter.learning.user;
+package com.learning.user;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

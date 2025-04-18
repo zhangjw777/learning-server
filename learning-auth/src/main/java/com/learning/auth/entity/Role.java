@@ -1,4 +1,6 @@
-package cn.linter.learning.auth.entity;
+package com.learning.auth.entity;
+
+import lombok.Data;
 
 import java.io.Serializable;
 
@@ -8,6 +10,7 @@ import java.io.Serializable;
  * @author 张家伟
  * @since 2025/04/04
  */
+@Data
 public class Role implements Serializable {
 
     private static final long serialVersionUID = -44062214609899076L;
@@ -16,12 +19,5 @@ public class Role implements Serializable {
      */
     private String name;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
 }

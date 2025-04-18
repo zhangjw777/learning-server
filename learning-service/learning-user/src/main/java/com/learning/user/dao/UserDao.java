@@ -1,6 +1,6 @@
-package cn.linter.learning.user.dao;
+package com.learning.user.dao;
 
-import cn.linter.learning.user.entity.User;
+import com.learning.user.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

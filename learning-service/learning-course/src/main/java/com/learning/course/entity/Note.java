@@ -1,4 +1,4 @@
-package cn.linter.learning.course.entity;
+package com.learning.course.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

@@ -1,11 +1,13 @@
-package cn.linter.learning.course.service.impl;
+package com.learning.course.service.impl;
 
-import cn.linter.learning.course.dao.QuestionDao;
-import cn.linter.learning.course.entity.Question;
-import cn.linter.learning.course.entity.User;
-import cn.linter.learning.course.service.QuestionService;
+import com.learning.course.dao.AnswerDao;
+import com.learning.course.dao.QuestionDao;
+import com.learning.course.entity.Question;
+import com.learning.course.entity.User;
+import com.learning.course.service.QuestionService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,14 +18,13 @@ import java.time.LocalDateTime;
  * @author 张家伟
  * @since 2025/04/04
  */
+@RequiredArgsConstructor
 @Service
 public class QuestionServiceImpl implements QuestionService {
 
     private final QuestionDao questionDao;
+    private final AnswerDao answerDao;
 
-    public QuestionServiceImpl(QuestionDao questionDao) {
-        this.questionDao = questionDao;
-    }
 
     @Override
     public Question queryById(Long id) {
@@ -64,7 +65,9 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public boolean delete(Long id) {
-        return questionDao.delete(id) > 0;
+        int deleteAnswerCount =answerDao.deleteByQuestionId(id);
+        int deleteQuestionCount = questionDao.delete(id);
+        return  deleteQuestionCount==1 && deleteAnswerCount>=0;
     }
 
 }

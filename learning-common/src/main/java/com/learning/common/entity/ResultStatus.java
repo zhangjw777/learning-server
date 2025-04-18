@@ -1,4 +1,4 @@
-package cn.linter.learning.common.entity;
+package com.learning.common.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

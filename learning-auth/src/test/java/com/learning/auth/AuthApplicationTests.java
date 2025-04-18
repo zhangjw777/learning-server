@@ -1,4 +1,4 @@
-package cn.linter.learning.auth;
+package com.learning.auth;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

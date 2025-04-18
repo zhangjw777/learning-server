@@ -1,6 +1,6 @@
-package cn.linter.learning.course.dao;
+package com.learning.course.dao;
 
-import cn.linter.learning.course.entity.Question;
+import com.learning.course.entity.Question;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -72,7 +72,7 @@ public interface QuestionDao {
     int increaseAnswerCountByQuestionId(Long questionId);
 
     /**
-     * 通过答案ID减少答案数量
+     * 通过回答id减少回答数量
      *
      * @param answerId 答案ID
      * @return 影响行数

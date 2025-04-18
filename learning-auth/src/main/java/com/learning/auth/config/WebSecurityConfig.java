@@ -1,8 +1,8 @@
-package cn.linter.learning.auth.config;
+package com.learning.auth.config;
 
-import cn.linter.learning.auth.client.UserClient;
-import cn.linter.learning.auth.entity.User;
-import cn.linter.learning.common.entity.ResultStatus;
+import com.learning.auth.client.UserClient;
+import com.learning.auth.entity.User;
+import com.learning.common.entity.ResultStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -1,4 +1,4 @@
-package cn.linter.learning.file.service;
+package com.learning.file.service;
 
 import io.minio.errors.*;
 import org.springframework.web.multipart.MultipartFile;

@@ -1,6 +1,6 @@
-package cn.linter.learning.trade.dao;
+package com.learning.trade.dao;
 
-import cn.linter.learning.trade.entity.Order;
+import com.learning.trade.entity.Order;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

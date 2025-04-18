@@ -1,8 +1,8 @@
-package cn.linter.learning.common.handler;
+package com.learning.common.handler;
 
-import cn.linter.learning.common.entity.Result;
-import cn.linter.learning.common.entity.ResultStatus;
-import cn.linter.learning.common.exception.BusinessException;
+import com.learning.common.entity.Result;
+import com.learning.common.entity.ResultStatus;
+import com.learning.common.exception.BusinessException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;

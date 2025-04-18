@@ -1,9 +1,9 @@
-package cn.linter.learning.user.controller;
+package com.learning.user.controller;
 
-import cn.linter.learning.common.entity.Result;
-import cn.linter.learning.common.entity.ResultStatus;
-import cn.linter.learning.user.entity.Role;
-import cn.linter.learning.user.service.RoleService;
+import com.learning.common.entity.Result;
+import com.learning.common.entity.ResultStatus;
+import com.learning.user.entity.Role;
+import com.learning.user.service.RoleService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

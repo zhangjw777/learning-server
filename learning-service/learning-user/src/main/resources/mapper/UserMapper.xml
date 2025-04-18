@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.linter.learning.user.dao.UserDao">
+<mapper namespace="com.learning.user.dao.UserDao">
 
-    <resultMap type="cn.linter.learning.user.entity.User" id="UserMap">
+    <resultMap type="com.learning.user.entity.User" id="UserMap">
         <result property="id" column="id"/>
         <result property="username" column="username"/>
         <result property="password" column="password"/>
@@ -13,7 +13,7 @@
         <result property="profilePicture" column="profile_picture"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
-        <association property="role" javaType="cn.linter.learning.user.entity.Role">
+        <association property="role" javaType="com.learning.user.entity.Role">
             <id property="id" column="role_id"/>
             <result property="name" column="role_name"/>
         </association>

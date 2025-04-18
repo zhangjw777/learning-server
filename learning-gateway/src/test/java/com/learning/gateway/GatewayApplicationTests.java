@@ -1,4 +1,4 @@
-package cn.linter.learning.gateway;
+package com.learning.gateway;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,7 +1,7 @@
-package cn.linter.learning.course.service.impl;
-import cn.linter.learning.course.dao.CourseDao;
-import cn.linter.learning.course.dao.CourseSearchDao;
-import cn.linter.learning.course.entity.Course;
+package com.learning.course.service.impl;
+import com.learning.course.dao.CourseDao;
+import com.learning.course.dao.CourseSearchDao;
+import com.learning.course.entity.Course;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

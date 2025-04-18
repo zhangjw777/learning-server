@@ -1,12 +1,13 @@
-package cn.linter.learning.course.controller;
+package com.learning.course.controller;
 
-import cn.linter.learning.common.entity.Page;
-import cn.linter.learning.common.entity.Result;
-import cn.linter.learning.common.entity.ResultStatus;
-import cn.linter.learning.common.utils.JwtUtil;
-import cn.linter.learning.course.entity.*;
-import cn.linter.learning.course.service.*;
+import com.learning.common.entity.Page;
+import com.learning.common.entity.Result;
+import com.learning.common.entity.ResultStatus;
+import com.learning.common.utils.JwtUtil;
+import com.learning.course.entity.*;
+import com.learning.course.service.*;
 import com.github.pagehelper.PageInfo;
+import com.learning.course.service.impl.CourseViewsServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,22 +27,27 @@ public class CourseController {
     private final QuestionService questionService;
     private final NoteService noteService;
     private final EvaluationService evaluationService;
+    private final CourseViewsServiceImpl courseViewsService;
 
     public CourseController(CourseService courseService, ChapterService chapterService,
-                            QuestionService questionService, NoteService noteService, EvaluationService evaluationService) {
+                            QuestionService questionService, NoteService noteService, EvaluationService evaluationService, CourseViewsServiceImpl courseViewsService) {
         this.courseService = courseService;
         this.chapterService = chapterService;
         this.questionService = questionService;
         this.noteService = noteService;
         this.evaluationService = evaluationService;
+        this.courseViewsService = courseViewsService;
     }
 
     @GetMapping("{id}")
     public Result<Course> queryCourse(@PathVariable("id") Long id, @RequestHeader(value = "Authorization", required = false) String token) {
         if (token == null) {
-            return Result.of(ResultStatus.SUCCESS, courseService.queryById(id));
+            Course course = courseService.queryById(id);
+            courseViewsService.incrementViewCount(course);
+            course.setViewCounts(courseViewsService.queryViewCountsOfCourse(course));
+            return Result.of(ResultStatus.SUCCESS, course);
         }
-        return Result.of(ResultStatus.SUCCESS, courseService.queryById(id, JwtUtil.getUsername(token)));
+        return Result.of(ResultStatus.SUCCESS, courseService.queryByIdAndName(id, JwtUtil.getUsername(token)));
     }
 
     @GetMapping("{id}/categories")
@@ -55,7 +61,7 @@ public class CourseController {
         if (token == null) {
             chapters = chapterService.listInfoByCourseId(id);
         } else {
-            Course course = courseService.queryById(id, JwtUtil.getUsername(token));
+            Course course = courseService.queryByIdAndName(id, JwtUtil.getUsername(token));
             if (course.getRegistered()) {
                 chapters = chapterService.listByCourseId(id);
             } else {

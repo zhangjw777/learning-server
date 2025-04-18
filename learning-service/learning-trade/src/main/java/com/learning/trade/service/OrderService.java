@@ -1,6 +1,6 @@
-package cn.linter.learning.trade.service;
+package com.learning.trade.service;
 
-import cn.linter.learning.trade.entity.Order;
+import com.learning.trade.entity.Order;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;

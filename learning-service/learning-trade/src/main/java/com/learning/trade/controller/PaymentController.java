@@ -1,13 +1,13 @@
-package cn.linter.learning.trade.controller;
+package com.learning.trade.controller;
 
 // 导入我们项目中其他模块或库的类，这些类提供了所需的功能。
-import cn.linter.learning.common.entity.Result; // 导入自定义的通用返回结果类，用于封装API响应数据。
-import cn.linter.learning.common.entity.ResultStatus; // 导入自定义的返回状态枚举，例如成功、失败等。
-import cn.linter.learning.common.exception.BusinessException; // 导入自定义的业务异常类，用于处理特定业务逻辑错误。
-import cn.linter.learning.trade.client.CourseClient; // 导入用于与“课程服务”进行通信的客户端接口（可能使用了Feign等技术）。
-import cn.linter.learning.trade.entity.Course; // 导入课程实体类，代表课程信息。
-import cn.linter.learning.trade.entity.Order; // 导入订单实体类，代表订单信息。
-import cn.linter.learning.trade.service.OrderService; // 导入订单服务接口，定义了处理订单相关的业务逻辑。
+import com.learning.common.entity.Result; // 导入自定义的通用返回结果类，用于封装API响应数据。
+import com.learning.common.entity.ResultStatus; // 导入自定义的返回状态枚举，例如成功、失败等。
+import com.learning.common.exception.BusinessException; // 导入自定义的业务异常类，用于处理特定业务逻辑错误。
+import com.learning.trade.client.CourseClient; // 导入用于与“课程服务”进行通信的客户端接口（可能使用了Feign等技术）。
+import com.learning.trade.entity.Course; // 导入课程实体类，代表课程信息。
+import com.learning.trade.entity.Order; // 导入订单实体类，代表订单信息。
+import com.learning.trade.service.OrderService; // 导入订单服务接口，定义了处理订单相关的业务逻辑。
 import com.alipay.easysdk.factory.Factory; // 导入支付宝Easy SDK的核心工厂类，用于初始化和获取支付能力。
 import com.alipay.easysdk.payment.page.models.AlipayTradePagePayResponse; // 导入支付宝电脑网站支付的响应模型类。
 import lombok.extern.slf4j.Slf4j;

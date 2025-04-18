@@ -1,6 +1,6 @@
-package cn.linter.learning.course; // 你的主包或配置包名
+package com.learning.course; // 你的主包或配置包名
 
-import cn.linter.learning.course.service.impl.CourseIndexService;
+import com.learning.course.service.impl.CourseIndexService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,14 +1,15 @@
-package cn.linter.learning.course.controller;
+package com.learning.course.controller;
 
-import cn.linter.learning.common.entity.Page;
-import cn.linter.learning.common.entity.Result;
-import cn.linter.learning.common.entity.ResultStatus;
-import cn.linter.learning.common.utils.JwtUtil;
-import cn.linter.learning.course.entity.Answer;
-import cn.linter.learning.course.entity.Question;
-import cn.linter.learning.course.service.AnswerService;
-import cn.linter.learning.course.service.QuestionService;
+import com.learning.common.entity.Page;
+import com.learning.common.entity.Result;
+import com.learning.common.entity.ResultStatus;
+import com.learning.common.utils.JwtUtil;
+import com.learning.course.entity.Answer;
+import com.learning.course.entity.Question;
+import com.learning.course.service.AnswerService;
+import com.learning.course.service.QuestionService;
 import com.github.pagehelper.PageInfo;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -57,10 +58,13 @@ public class QuestionController {
         return Result.of(ResultStatus.SUCCESS, questionService.update(question));
     }
 
+    @Transactional
     @DeleteMapping("{id}")
     public ResultStatus deleteQuestion(@PathVariable("id") Long id) {
-        questionService.delete(id);
-        return ResultStatus.SUCCESS;
+        if(questionService.delete(id))
+            return ResultStatus.SUCCESS;
+        else
+            return ResultStatus.ARGUMENT_NOT_VALID;
     }
 
 }

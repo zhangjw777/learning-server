@@ -1,8 +1,8 @@
-package cn.linter.learning.user.service.impl;
+package com.learning.user.service.impl;
 
-import cn.linter.learning.user.dao.RoleDao;
-import cn.linter.learning.user.entity.Role;
-import cn.linter.learning.user.service.RoleService;
+import com.learning.user.dao.RoleDao;
+import com.learning.user.entity.Role;
+import com.learning.user.service.RoleService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package cn.linter.learning.trade.config;
+package com.learning.trade.config;
 
 import com.alipay.easysdk.factory.Factory;
 import com.alipay.easysdk.kernel.Config;

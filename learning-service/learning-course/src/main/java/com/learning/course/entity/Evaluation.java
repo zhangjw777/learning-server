@@ -1,8 +1,9 @@
-package cn.linter.learning.course.entity;
+package com.learning.course.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.springframework.data.annotation.Transient;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -48,4 +49,6 @@ public class Evaluation implements Serializable {
      */
     private LocalDateTime updateTime;
 
+    @Transient
+    private String courseName;
 }

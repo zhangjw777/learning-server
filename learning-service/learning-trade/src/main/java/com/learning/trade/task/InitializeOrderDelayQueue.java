@@ -1,7 +1,7 @@
-package cn.linter.learning.trade.task;
+package com.learning.trade.task;
 
-import cn.linter.learning.trade.entity.Order; // 导入订单实体类，它代表了一个订单的数据结构
-import cn.linter.learning.trade.service.OrderService; // 导入订单服务接口，用于处理订单相关的业务逻辑（如查询、更新）
+import com.learning.trade.entity.Order; // 导入订单实体类，它代表了一个订单的数据结构
+import com.learning.trade.service.OrderService; // 导入订单服务接口，用于处理订单相关的业务逻辑（如查询、更新）
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments; // 导入 Spring Boot 应用启动参数的接口
 import org.springframework.boot.ApplicationRunner; // 导入 Spring Boot 的 ApplicationRunner 接口。实现这个接口的类会在 Spring Boot 应用启动完成后执行 run 方法

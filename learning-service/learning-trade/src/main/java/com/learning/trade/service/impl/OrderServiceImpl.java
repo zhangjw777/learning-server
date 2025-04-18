@@ -1,10 +1,10 @@
-package cn.linter.learning.trade.service.impl;
+package com.learning.trade.service.impl;
 
-import cn.linter.learning.trade.client.CourseClient;
-import cn.linter.learning.trade.dao.OrderDao;
-import cn.linter.learning.trade.entity.Course;
-import cn.linter.learning.trade.entity.Order;
-import cn.linter.learning.trade.service.OrderService;
+import com.learning.trade.client.CourseClient;
+import com.learning.trade.dao.OrderDao;
+import com.learning.trade.entity.Course;
+import com.learning.trade.entity.Order;
+import com.learning.trade.service.OrderService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;

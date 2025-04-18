@@ -1,8 +1,8 @@
-package cn.linter.learning.course.service.impl;
+package com.learning.course.service.impl;
 
-import cn.linter.learning.course.dao.CategoryDao;
-import cn.linter.learning.course.entity.Category;
-import cn.linter.learning.course.service.CategoryService;
+import com.learning.course.dao.CategoryDao;
+import com.learning.course.entity.Category;
+import com.learning.course.service.CategoryService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

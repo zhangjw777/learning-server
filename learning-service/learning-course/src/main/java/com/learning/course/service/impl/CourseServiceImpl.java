@@ -1,13 +1,14 @@
-package cn.linter.learning.course.service.impl;
+package com.learning.course.service.impl;
 
-import cn.linter.learning.course.dao.CourseDao;
-import cn.linter.learning.course.dao.CourseSearchDao;
-import cn.linter.learning.course.entity.Category;
-import cn.linter.learning.course.entity.Course;
-import cn.linter.learning.course.entity.User;
-import cn.linter.learning.course.service.CourseService;
+import com.learning.course.dao.CourseDao;
+import com.learning.course.dao.CourseSearchDao;
+import com.learning.course.entity.Category;
+import com.learning.course.entity.Course;
+import com.learning.course.entity.User;
+import com.learning.course.service.CourseService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,24 +23,28 @@ import java.util.List;
  * @author 张家伟
  * @since 2025/04/04
  */
+@Slf4j
 @Service
 public class CourseServiceImpl implements CourseService {
 
     private final CourseDao courseDao;
     private final CourseSearchDao courseSearchDao;
-
-    public CourseServiceImpl(CourseDao courseDao, CourseSearchDao courseSearchDao) {
+    private final CourseViewsServiceImpl courseViewsServiceImpl;
+    public CourseServiceImpl(CourseDao courseDao, CourseSearchDao courseSearchDao, CourseViewsServiceImpl courseViewsServiceImpl) {
         this.courseDao = courseDao;
         this.courseSearchDao = courseSearchDao;
+
+        this.courseViewsServiceImpl = courseViewsServiceImpl;
     }
 
     @Override
     public Course queryById(Long id) {
-        return courseDao.selectById(id);
+        Course course = courseDao.selectById(id);
+        return course;
     }
 
     @Override
-    public Course queryById(Long id, String username) {
+    public Course queryByIdAndName(Long id, String username) {
         Course course = courseDao.selectById(id);
         course.setRegistered(courseDao.selectRegistration(username, id));
         return course;
@@ -48,8 +53,16 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public PageInfo<Course> list(int pageNum, int pageSize, Boolean approved, String orderBy) {
         PageHelper.startPage(pageNum, pageSize);
-        return PageInfo.of(courseDao.list(approved, orderBy));
+        List<Course> courses = courseDao.list(approved, orderBy);
+        courses.stream().forEach(course -> {
+            Integer viewCounts = courseViewsServiceImpl.queryViewCountsOfCourse(course);
+            course.setViewCounts(viewCounts);
+        });
+        return PageInfo.of(courses);
     }
+
+
+
 
     @Override
     public PageInfo<Course> listByTeacherName(int pageNum, int pageSize, String teacherName) {

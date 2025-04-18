@@ -1,4 +1,4 @@
-package cn.linter.learning.trade;
+package com.learning.trade;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

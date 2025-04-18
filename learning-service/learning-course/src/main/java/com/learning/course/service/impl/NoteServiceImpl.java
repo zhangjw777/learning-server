@@ -1,9 +1,9 @@
-package cn.linter.learning.course.service.impl;
+package com.learning.course.service.impl;
 
-import cn.linter.learning.course.dao.NoteDao;
-import cn.linter.learning.course.entity.Note;
-import cn.linter.learning.course.entity.User;
-import cn.linter.learning.course.service.NoteService;
+import com.learning.course.dao.NoteDao;
+import com.learning.course.entity.Note;
+import com.learning.course.entity.User;
+import com.learning.course.service.NoteService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;

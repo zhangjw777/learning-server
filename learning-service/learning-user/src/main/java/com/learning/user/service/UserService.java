@@ -1,6 +1,6 @@
-package cn.linter.learning.user.service;
+package com.learning.user.service;
 
-import cn.linter.learning.user.entity.User;
+import com.learning.user.entity.User;
 import com.github.pagehelper.PageInfo;
 
 /**

@@ -1,10 +1,10 @@
-package cn.linter.learning.course.service.impl;
+package com.learning.course.service.impl;
 
-import cn.linter.learning.course.dao.AnswerDao;
-import cn.linter.learning.course.dao.QuestionDao;
-import cn.linter.learning.course.entity.Answer;
-import cn.linter.learning.course.entity.User;
-import cn.linter.learning.course.service.AnswerService;
+import com.learning.course.dao.AnswerDao;
+import com.learning.course.dao.QuestionDao;
+import com.learning.course.entity.Answer;
+import com.learning.course.entity.User;
+import com.learning.course.service.AnswerService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;

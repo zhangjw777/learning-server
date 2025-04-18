@@ -1,4 +1,4 @@
-package cn.linter.learning.auth.entity;
+package com.learning.auth.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;

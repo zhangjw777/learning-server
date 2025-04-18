@@ -1,9 +1,9 @@
-package cn.linter.learning.auth.controller;
+package com.learning.auth.controller;
 
-import cn.linter.learning.auth.client.UserClient;
-import cn.linter.learning.auth.entity.User;
-import cn.linter.learning.common.entity.Result;
-import cn.linter.learning.common.utils.JwtUtil;
+import com.learning.auth.client.UserClient;
+import com.learning.auth.entity.User;
+import com.learning.common.entity.Result;
+import com.learning.common.utils.JwtUtil;
 import org.springframework.web.bind.annotation.*;
 
 /**

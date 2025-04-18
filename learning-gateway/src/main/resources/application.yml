@@ -74,7 +74,13 @@ spring:
                 - /api/videos/**  # 视频文件路径
                 - /api/cover-pictures/**  # 封面图片路径
                 - /api/profile-pictures/**  # 头像图片路径
-
+                -
+        - id: aichat-service # 智能聊天服务路由
+          uri: lb://aichat-service
+          predicates:
+            - name: Path
+              args:
+                - /api/chat/**
         - id: dfs  # 分布式文件系统路由
           uri: http://192.168.150.101:9000  # 直接指向MinIO等存储服务
           predicates:

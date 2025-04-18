@@ -1,4 +1,4 @@
-package cn.linter.learning.common.utils;
+package com.learning.common.utils;
 
 import com.nimbusds.jose.JWSObject;
 import lombok.extern.slf4j.Slf4j;

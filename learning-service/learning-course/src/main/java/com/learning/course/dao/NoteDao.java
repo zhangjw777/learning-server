@@ -1,6 +1,6 @@
-package cn.linter.learning.course.dao;
+package com.learning.course.dao;
 
-import cn.linter.learning.course.entity.Note;
+import com.learning.course.entity.Note;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

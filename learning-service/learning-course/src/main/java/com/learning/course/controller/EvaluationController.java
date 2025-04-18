@@ -1,11 +1,11 @@
-package cn.linter.learning.course.controller;
+package com.learning.course.controller;
 
-import cn.linter.learning.common.entity.Page;
-import cn.linter.learning.common.entity.Result;
-import cn.linter.learning.common.entity.ResultStatus;
-import cn.linter.learning.common.utils.JwtUtil;
-import cn.linter.learning.course.entity.Evaluation;
-import cn.linter.learning.course.service.EvaluationService;
+import com.learning.common.entity.Page;
+import com.learning.common.entity.Result;
+import com.learning.common.entity.ResultStatus;
+import com.learning.common.utils.JwtUtil;
+import com.learning.course.entity.Evaluation;
+import com.learning.course.service.EvaluationService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
 

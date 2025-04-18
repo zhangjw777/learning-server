@@ -1,7 +1,7 @@
-package cn.linter.learning.course.service;
+package com.learning.course.service;
 
-import cn.linter.learning.course.entity.Category;
-import cn.linter.learning.course.entity.Course;
+import com.learning.course.entity.Category;
+import com.learning.course.entity.Course;
 import com.github.pagehelper.PageInfo;
 import org.springframework.data.domain.Page;
 
@@ -24,13 +24,13 @@ public interface CourseService {
     Course queryById(Long id);
 
     /**
-     * 通过ID查询单个课程
+     * 查询用户-课程关系
      *
      * @param id       课程ID
      * @param username 用户名
      * @return 单个课程
      */
-    Course queryById(Long id, String username);
+    Course queryByIdAndName(Long id, String username);
 
     /**
      * 分页查询所有课程
@@ -106,6 +106,7 @@ public interface CourseService {
      * @return 是否成功
      */
     boolean delete(Long id);
+
 
     /**
      * 插入用户-课程关系

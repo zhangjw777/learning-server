@@ -1,7 +1,7 @@
-package cn.linter.learning.auth.client;
+package com.learning.auth.client;
 
-import cn.linter.learning.auth.entity.User;
-import cn.linter.learning.common.entity.Result;
+import com.learning.auth.entity.User;
+import com.learning.common.entity.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

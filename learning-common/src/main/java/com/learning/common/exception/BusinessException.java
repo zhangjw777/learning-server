@@ -1,6 +1,6 @@
-package cn.linter.learning.common.exception;
+package com.learning.common.exception;
 
-import cn.linter.learning.common.entity.ResultStatus;
+import com.learning.common.entity.ResultStatus;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

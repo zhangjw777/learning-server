@@ -1,6 +1,6 @@
-package cn.linter.learning.course.service;
+package com.learning.course.service;
 
-import cn.linter.learning.course.entity.Evaluation;
+import com.learning.course.entity.Evaluation;
 import com.github.pagehelper.PageInfo;
 
 /**

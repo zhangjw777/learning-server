@@ -1,11 +1,11 @@
-package cn.linter.learning.trade.controller;
+package com.learning.trade.controller;
 
-import cn.linter.learning.common.entity.Page;
-import cn.linter.learning.common.entity.Result;
-import cn.linter.learning.common.entity.ResultStatus;
-import cn.linter.learning.common.utils.JwtUtil;
-import cn.linter.learning.trade.entity.Order;
-import cn.linter.learning.trade.service.OrderService;
+import com.learning.common.entity.Page;
+import com.learning.common.entity.Result;
+import com.learning.common.entity.ResultStatus;
+import com.learning.common.utils.JwtUtil;
+import com.learning.trade.entity.Order;
+import com.learning.trade.service.OrderService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.annotation.*;
 

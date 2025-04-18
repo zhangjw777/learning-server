@@ -7,6 +7,10 @@ spring:
     url: jdbc:mysql://localhost/learning?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     username: root
     password: 147258
+  redis:
+    host: 192.168.150.101
+    port: 6379
+    database: 0
   jackson:
     default-property-inclusion: non_null
     date-format: yyyy-MM-dd HH:mm

@@ -1,6 +1,6 @@
-package cn.linter.learning.course.dao;
+package com.learning.course.dao;
 
-import cn.linter.learning.course.entity.Answer;
+import com.learning.course.entity.Answer;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -61,4 +61,10 @@ public interface AnswerDao {
      */
     int delete(Long id);
 
+    /**
+     * 通过问题ID删除答案
+     * @param id
+     * @return
+     */
+    int deleteByQuestionId(Long id);
 }

@@ -1,6 +1,6 @@
-package cn.linter.learning.gateway.config;
+package com.learning.gateway.config;
 
-import cn.linter.learning.common.entity.ResultStatus; // 导入了自定义的 ResultStatus 类，通常用于封装统一的 API 响应状态（如错误码、消息）。
+import com.learning.common.entity.ResultStatus; // 导入了自定义的 ResultStatus 类，通常用于封装统一的 API 响应状态（如错误码、消息）。
 import com.fasterxml.jackson.core.JsonProcessingException; // 导入 Jackson 库的异常类，用于处理将 Java 对象序列化为 JSON 字符串时可能发生的错误。
 import com.fasterxml.jackson.databind.ObjectMapper; // 导入 Jackson 库的核心类，用于 Java 对象和 JSON 数据之间的转换（序列化和反序列化）。
 import lombok.extern.slf4j.Slf4j; // 导入 Lombok 提供的日志注解，可以方便地创建一个 SLF4J 的 Logger 实例，变量名为 log。

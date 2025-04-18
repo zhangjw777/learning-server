@@ -1,6 +1,6 @@
-package cn.linter.learning.file.service.impl;
+package com.learning.file.service.impl;
 
-import cn.linter.learning.file.service.FileService; // 导入自定义的文件服务接口
+import com.learning.file.service.FileService; // 导入自定义的文件服务接口
 import io.minio.*; // 导入Minio核心类，如MinioClient
 import io.minio.errors.*; // 导入Minio可能抛出的各种异常类
 import org.springframework.beans.factory.annotation.Value; // 导入Spring的@Value注解，用于注入配置文件中的值

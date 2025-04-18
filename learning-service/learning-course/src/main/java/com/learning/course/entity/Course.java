@@ -1,4 +1,4 @@
-package cn.linter.learning.course.entity;
+package com.learning.course.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -87,5 +87,7 @@ public class Course implements Serializable {
      */
     @Transient
     private List<Category> categories;
+    @Transient
+    private Integer viewCounts;
 
 }

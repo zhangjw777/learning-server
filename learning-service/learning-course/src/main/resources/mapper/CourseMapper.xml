@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.linter.learning.course.dao.CourseDao">
+<mapper namespace="com.learning.course.dao.CourseDao">
 
-    <resultMap type="cn.linter.learning.course.entity.Course" id="CourseMap">
+    <resultMap type="com.learning.course.entity.Course" id="CourseMap">
         <result property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="price" column="price"/>
@@ -12,7 +12,7 @@
         <result property="approved" column="approved"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
-        <association property="teacher" javaType="cn.linter.learning.course.entity.User">
+        <association property="teacher" javaType="com.learning.course.entity.User">
             <id property="id" column="uid"/>
             <result property="username" column="username"/>
             <result property="fullName" column="full_name"/>
@@ -142,7 +142,7 @@
     </select>
 
     <!--通过ID查询分类列表-->
-    <select id="listCategoryById" resultMap="cn.linter.learning.course.dao.CategoryDao.CategoryMap">
+    <select id="listCategoryById" resultMap="com.learning.course.dao.CategoryDao.CategoryMap">
         select c.id, c.name
         from category c
                  join category_course cc on c.id = cc.category_id

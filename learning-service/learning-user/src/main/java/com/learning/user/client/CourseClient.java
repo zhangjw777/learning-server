@@ -1,9 +1,9 @@
-package cn.linter.learning.user.client;
+package com.learning.user.client;
 
-import cn.linter.learning.common.entity.Page;
-import cn.linter.learning.common.entity.Result;
-import cn.linter.learning.user.entity.Course;
-import cn.linter.learning.user.entity.Note;
+import com.learning.common.entity.Page;
+import com.learning.common.entity.Result;
+import com.learning.user.entity.Course;
+import com.learning.user.entity.Note;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

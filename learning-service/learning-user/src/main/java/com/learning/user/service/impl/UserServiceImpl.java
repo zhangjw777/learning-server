@@ -1,11 +1,11 @@
-package cn.linter.learning.user.service.impl;
+package com.learning.user.service.impl;
 
-import cn.linter.learning.common.entity.ResultStatus;
-import cn.linter.learning.common.exception.BusinessException;
-import cn.linter.learning.user.dao.UserDao;
-import cn.linter.learning.user.entity.Role;
-import cn.linter.learning.user.entity.User;
-import cn.linter.learning.user.service.UserService;
+import com.learning.common.entity.ResultStatus;
+import com.learning.common.exception.BusinessException;
+import com.learning.user.dao.UserDao;
+import com.learning.user.entity.Role;
+import com.learning.user.entity.User;
+import com.learning.user.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -71,9 +71,7 @@ public class UserServiceImpl implements UserService {
     public User update(User user) {
 //        User oldUser = userDao.selectByUsername(user.getUsername());
         User oldUser = userDao.selectByUserId(user.getId());
-        if (oldUser != null && oldUser.getUsername().equals(user.getUsername())) {
-            throw new BusinessException(ResultStatus.USERNAME_EXISTS);
-        } else if (oldUser==null) {
+        if (oldUser==null) {
             throw new BusinessException(ResultStatus.USER_NOT_FOUND);
         }
         String rawPassword = user.getPassword();

@@ -1,6 +1,6 @@
-package cn.linter.learning.trade.config;
+package com.learning.trade.config;
 
-import cn.linter.learning.trade.entity.Order;
+import com.learning.trade.entity.Order;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

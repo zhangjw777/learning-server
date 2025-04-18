@@ -1,4 +1,4 @@
-package cn.linter.learning.auth.config;
+package com.learning.auth.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

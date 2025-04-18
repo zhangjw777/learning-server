@@ -1,9 +1,9 @@
-package cn.linter.learning.course.controller;
+package com.learning.course.controller;
 
-import cn.linter.learning.common.entity.Result;
-import cn.linter.learning.common.entity.ResultStatus;
-import cn.linter.learning.course.entity.Chapter;
-import cn.linter.learning.course.service.ChapterService;
+import com.learning.common.entity.Result;
+import com.learning.common.entity.ResultStatus;
+import com.learning.course.entity.Chapter;
+import com.learning.course.service.ChapterService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.linter.learning.course.dao.ChapterDao">
+<mapper namespace="com.learning.course.dao.ChapterDao">
 
-    <resultMap type="cn.linter.learning.course.entity.Chapter" id="ChapterMap">
+    <resultMap type="com.learning.course.entity.Chapter" id="ChapterMap">
         <result property="id" column="id"/>
         <result property="title" column="title"/>
         <result property="type" column="type"/>
@@ -12,6 +12,7 @@
         <result property="courseId" column="course_id"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
+        <result property="courseName" column="course_name" javaType="String"/>
     </resultMap>
 
     <!--通过ID查询单个章节-->
@@ -23,8 +24,8 @@
 
     <!--查询所有章节-->
     <select id="list" resultMap="ChapterMap">
-        select id, title, type, video_time, video_url, text_content, course_id, create_time, update_time
-        from chapter
+        select chapter.id, title, type, video_time, video_url, text_content, course_id, chapter.create_time, chapter.update_time, c.name as course_name
+        from chapter left join learning.course c on chapter.course_id = c.id
     </select>
 
     <!--通过课程ID查询所有章节-->

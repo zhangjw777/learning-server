@@ -1,4 +1,4 @@
-package cn.linter.learning.auth.controller;
+package com.learning.auth.controller;
 
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;

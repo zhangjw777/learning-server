@@ -1,6 +1,6 @@
-package cn.linter.learning.course.dao;
+package com.learning.course.dao;
 
-import cn.linter.learning.course.entity.Course;
+import com.learning.course.entity.Course;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;

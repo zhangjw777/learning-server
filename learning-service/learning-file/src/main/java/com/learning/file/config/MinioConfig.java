@@ -1,4 +1,4 @@
-package cn.linter.learning.file.config;
+package com.learning.file.config;
 
 import io.minio.MinioClient;
 import lombok.extern.slf4j.Slf4j;

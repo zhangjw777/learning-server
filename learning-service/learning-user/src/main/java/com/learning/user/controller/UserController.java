@@ -1,13 +1,13 @@
-package cn.linter.learning.user.controller;
+package com.learning.user.controller;
 
-import cn.linter.learning.common.entity.Page;
-import cn.linter.learning.common.entity.Result;
-import cn.linter.learning.common.entity.ResultStatus;
-import cn.linter.learning.user.client.CourseClient;
-import cn.linter.learning.user.entity.Course;
-import cn.linter.learning.user.entity.Note;
-import cn.linter.learning.user.entity.User;
-import cn.linter.learning.user.service.UserService;
+import com.learning.common.entity.Page;
+import com.learning.common.entity.Result;
+import com.learning.common.entity.ResultStatus;
+import com.learning.user.client.CourseClient;
+import com.learning.user.entity.Course;
+import com.learning.user.entity.Note;
+import com.learning.user.entity.User;
+import com.learning.user.service.UserService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
