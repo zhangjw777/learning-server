@@ -28,7 +28,7 @@ public interface ChapterService {
     List<Chapter> list();
 
     /**
-     * 通过课程ID查询所有章节
+     * 通过课程ID查询所有章节 含章节内的所有内容
      *
      * @param courseId 课程ID
      * @return 章节列表
@@ -36,7 +36,7 @@ public interface ChapterService {
     List<Chapter> listByCourseId(Long courseId);
 
     /**
-     * 通过课程ID查询所有章节信息
+     * 通过课程ID查询所有章节信息 不含课程内容 仅作展示哪些章节
      *
      * @param courseId 课程ID
      * @return 章节列表
@@ -66,5 +66,7 @@ public interface ChapterService {
      * @return 是否成功
      */
     boolean delete(Long id);
+
+
 
 }

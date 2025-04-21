@@ -1,5 +1,6 @@
 package com.learning.course.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.learning.course.entity.Category;
 import com.learning.course.entity.Course;
 import com.github.pagehelper.PageInfo;
@@ -13,7 +14,7 @@ import java.util.List;
  * @author 张家伟
  * @since 2025/04/04
  */
-public interface CourseService {
+public interface CourseService extends IService<Course> {
 
     /**
      * 通过ID查询单个课程
@@ -132,4 +133,16 @@ public interface CourseService {
      */
     void synchronize();
 
+    void incrementChapterCount(Long courseId);
+    /**
+     * 用户完成整个课程
+     * @param userName
+     * @param courseId 课程ID
+     */
+    void completeCourse(String userName, Long courseId) ;
+
+
+    Long queryCurrentChapterId(String userName, Long id) ;
+
+    Boolean checkCourseCompleted(String userName, Long courseId) ;
 }

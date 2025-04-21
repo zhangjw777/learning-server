@@ -31,6 +31,11 @@
       "description": "头像存储桶名."
     },
     {
+      "name": "minio.certificate-picture-bucket-name",
+      "type": "java.lang.String",
+      "description": "证书存储桶名."
+    },
+    {
       "name": "gateway.address",
       "type": "java.lang.String",
       "description": "网关服务器地址."

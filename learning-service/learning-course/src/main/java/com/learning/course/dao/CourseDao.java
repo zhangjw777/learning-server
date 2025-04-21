@@ -1,5 +1,6 @@
 package com.learning.course.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.learning.course.entity.Category;
 import com.learning.course.entity.Course;
 import org.apache.ibatis.annotations.Mapper;
@@ -14,7 +15,7 @@ import java.util.List;
  * @since 2025/04/04
  */
 @Mapper
-public interface CourseDao {
+public interface CourseDao extends BaseMapper<Course> {
 
     /**
      * 通过ID查询单个课程
@@ -125,4 +126,11 @@ public interface CourseDao {
      */
     int deleteCategory(@Param("courseId") Long courseId);
 
+    /**
+     * 课程数量加1
+     *
+     * @param courseId 课程ID
+     *
+     */
+    void incrementChapterCount(Long courseId);
 }

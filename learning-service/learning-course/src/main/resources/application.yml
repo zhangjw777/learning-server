@@ -22,7 +22,7 @@ spring:
         namespace: 0196a48b-5ba6-4544-ace2-cec9e2da72ca
 #    # 新增 Elasticsearch 配置
   elasticsearch:
-    uris: http://192.168.150.101:9200  # 将 <你的虚拟机的IP地址> 替换为实际的 IP
+    uris: http://192.168.150.101:9200
 #      # 如果你的 Elasticsearch 设置了用户名和密码，也需要在这里配置：
 #      # username: your_username
 #      # password: your_password
@@ -32,3 +32,6 @@ mybatis:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 pagehelper:
   page-size-zero: true
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

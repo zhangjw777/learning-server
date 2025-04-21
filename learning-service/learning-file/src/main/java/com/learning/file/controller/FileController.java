@@ -38,4 +38,9 @@ public class FileController {
         return Result.of(ResultStatus.SUCCESS, fileService.uploadProfilePicture(multipartFile));
     }
 
+    @PostMapping("certificate-pictures")
+    public Result<String> uploadCertificatePicture(@RequestParam MultipartFile multipartFile) throws Exception {
+        return Result.of(ResultStatus.SUCCESS, fileService.uploadCertificatePicture(multipartFile));
+    }
+
 }

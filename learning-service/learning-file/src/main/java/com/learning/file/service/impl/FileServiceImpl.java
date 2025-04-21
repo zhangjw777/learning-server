@@ -49,6 +49,8 @@ public class FileServiceImpl implements FileService {
     @Value("${minio.profile-picture-bucket-name}")
     private String profilePictureBucketName;
 
+    @Value("${minio.certificate-picture-bucket-name}")
+    private String certificatePictureBucketName;
     /**
      * 构造函数注入 MinioClient 实例。
      * Spring Boot会自动查找一个类型为 MinioClient 的Bean（通常在配置类中创建）并传入。
@@ -124,6 +126,11 @@ public class FileServiceImpl implements FileService {
             InsufficientDataException, NoSuchAlgorithmException, ServerException, InternalException, XmlParserException, ErrorResponseException {
         // 调用通用的文件保存方法，并指定使用配置的用户头像存储桶名称
         return saveMultipartFileWithRandomName(multipartFile, profilePictureBucketName);
+    }
+
+    @Override
+    public String uploadCertificatePicture(MultipartFile multipartFile) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+        return saveMultipartFileWithRandomName(multipartFile, certificatePictureBucketName);
     }
 
     /**

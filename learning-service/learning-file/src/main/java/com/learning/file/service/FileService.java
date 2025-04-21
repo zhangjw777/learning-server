@@ -69,4 +69,11 @@ public interface FileService {
     String uploadProfilePicture(MultipartFile multipartFile) throws IOException, InvalidKeyException, InvalidResponseException,
             InsufficientDataException, NoSuchAlgorithmException, ServerException, InternalException, XmlParserException, ErrorResponseException;
 
+    /**
+     * 上传证书
+     *
+     * @param multipartFile 二进制文件
+     * @return 证书地址
+     */
+    String uploadCertificatePicture(MultipartFile multipartFile) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException;
 }

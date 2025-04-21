@@ -4,6 +4,7 @@ import com.learning.common.entity.Result;
 import com.learning.common.entity.ResultStatus;
 import com.learning.course.entity.Chapter;
 import com.learning.course.service.ChapterService;
+import com.learning.course.service.CourseService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,9 +20,11 @@ import java.util.List;
 public class ChapterController {
 
     private final ChapterService chapterService;
+    private final CourseService courseService;
 
-    public ChapterController(ChapterService chapterService) {
+    public ChapterController(ChapterService chapterService, CourseService courseService) {
         this.chapterService = chapterService;
+        this.courseService = courseService;
     }
 
     @GetMapping("{id}")
@@ -36,6 +39,7 @@ public class ChapterController {
 
     @PostMapping
     public Result<Chapter> createChapter(@RequestBody Chapter chapter) {
+        courseService.incrementChapterCount(chapter.getCourseId());
         return Result.of(ResultStatus.SUCCESS, chapterService.create(chapter));
     }
 

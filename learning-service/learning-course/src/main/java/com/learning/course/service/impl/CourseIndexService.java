@@ -34,7 +34,7 @@ public class CourseIndexService {
         List<Course> coursesFromDb;
         try {
             // --- 从你的主数据库获取数据 ---
-            coursesFromDb = courseDbRepository.list(true,"create_time"); // 或者你的 MyBatis 查询方法
+            coursesFromDb = courseDbRepository.list(true,"create_time");
             // --- 数据获取完成 ---
 
             log.info("从数据库加载了 {} 条课程数据。", coursesFromDb.size());

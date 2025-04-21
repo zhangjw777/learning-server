@@ -1,14 +1,18 @@
 package com.learning.course.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.learning.course.dao.CertificateMapper;
 import com.learning.course.dao.CourseDao;
 import com.learning.course.dao.CourseSearchDao;
-import com.learning.course.entity.Category;
-import com.learning.course.entity.Course;
-import com.learning.course.entity.User;
+import com.learning.course.dao.UserCourseMapper;
+import com.learning.course.entity.*;
 import com.learning.course.service.CourseService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,22 +27,20 @@ import java.util.List;
  * @author 张家伟
  * @since 2025/04/04
  */
+@RequiredArgsConstructor
 @Slf4j
 @Service
-public class CourseServiceImpl implements CourseService {
+public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements CourseService {
 
     private final CourseDao courseDao;
     private final CourseSearchDao courseSearchDao;
     private final CourseViewsServiceImpl courseViewsServiceImpl;
-    public CourseServiceImpl(CourseDao courseDao, CourseSearchDao courseSearchDao, CourseViewsServiceImpl courseViewsServiceImpl) {
-        this.courseDao = courseDao;
-        this.courseSearchDao = courseSearchDao;
-
-        this.courseViewsServiceImpl = courseViewsServiceImpl;
-    }
+    private final UserCourseMapper userCourseMapper;
+    private final CertificateMapper certificateMapper;
 
     @Override
     public Course queryById(Long id) {
+
         Course course = courseDao.selectById(id);
         return course;
     }
@@ -60,8 +62,6 @@ public class CourseServiceImpl implements CourseService {
         });
         return PageInfo.of(courses);
     }
-
-
 
 
     @Override
@@ -98,7 +98,8 @@ public class CourseServiceImpl implements CourseService {
         course.setCreateTime(now);
         course.setUpdateTime(now);
         courseDao.insert(course);
-        courseSearchDao.save(course);
+        if (course.getRegistered())
+            courseSearchDao.save(course);
         return course;
     }
 
@@ -106,10 +107,12 @@ public class CourseServiceImpl implements CourseService {
     public Course update(Course course) {
         course.setUpdateTime(LocalDateTime.now());
         int rows = courseDao.update(course);
-        System.out.println(rows);
+        log.info("课程更新行数：{}", rows);
         Course newCourse = courseDao.selectById(course.getId());
-        courseSearchDao.deleteById(course.getId());
-        courseSearchDao.save(newCourse);
+        if (rows > 0||course.getRegistered()) {
+            courseSearchDao.deleteById(course.getId());
+            courseSearchDao.save(newCourse);
+        }
         return newCourse;
     }
 
@@ -139,6 +142,53 @@ public class CourseServiceImpl implements CourseService {
     public void synchronize() {
         courseSearchDao.deleteAll();
         courseSearchDao.saveAll(courseDao.list(true, "create_time"));
+    }
+
+    @Override
+    public void incrementChapterCount(Long courseId) {
+        courseDao.incrementChapterCount(courseId);
+    }
+
+    @Override
+    public void completeCourse(String userName, Long courseId) {
+        Integer chapterCount = courseDao.selectById(courseId).getChapterCount();
+        //判断章节是否为空以及是否完成
+        if(chapterCount==null||chapterCount<1||checkCourseCompleted(userName, courseId))
+            return;
+        // 更新用户课程表，设置完成状态和完成时间
+        LambdaQueryWrapper<UserCourse> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(UserCourse::getUserName, userName)
+                .eq(UserCourse::getCourseId, courseId);
+        UserCourse userCourse = new UserCourse();
+        userCourse.setIsCompleted(1);
+        userCourse.setCompletionTime(LocalDateTime.now());
+        userCourseMapper.update(userCourse, queryWrapper);
+    }
+
+    @Override
+    public Long queryCurrentChapterId(String userName, Long courseId)  {
+        if (checkCourseCompleted(userName, courseId)) {
+            return -1L;//表示已完成,可给前端或者其他业务判断而需要查checkCourseCompleted
+        }
+        LambdaQueryWrapper<UserCourse> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(UserCourse::getUserName, userName)
+                .eq(UserCourse::getCourseId, courseId);
+        return userCourseMapper.selectOne(queryWrapper).getCurrentChapter();
+    }
+
+    @Override
+    public Boolean checkCourseCompleted(String userName, Long courseId)  {
+        LambdaQueryWrapper<UserCourse> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(UserCourse::getUserName, userName)
+                .eq(UserCourse::getCourseId, courseId);
+        UserCourse userCourse = userCourseMapper.selectOne(queryWrapper);
+        if (userCourse==null)
+            throw new RuntimeException("用户课程记录不存在");
+        if (userCourse.getIsCompleted()==1){
+            return true;
+        }else {
+            return false;
+        }
     }
 
 }

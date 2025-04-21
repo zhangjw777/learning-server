@@ -1,5 +1,6 @@
 package com.learning.course.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -24,6 +25,7 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 @Document(indexName = "courses")
+@TableName("course")
 public class Course implements Serializable {
 
     private static final long serialVersionUID = -38543796891982620L;
@@ -72,6 +74,14 @@ public class Course implements Serializable {
      */
     @Transient
     private Boolean approved;
+    @Transient
+    private Integer chapterCount;
+    @Transient
+    private Integer pointsReward;
+    @Transient
+    private String certificateUrl;
+    @Transient
+    private Integer isPremium;
     /**
      * 创建时间
      */
@@ -85,8 +95,10 @@ public class Course implements Serializable {
     /**
      * 分类id
      */
+    @Transient
     private Integer categoryId;
     @Transient
     private Integer viewCounts;
 
+    //@Transient是用于spring data来忽略字段，这里针对es,对于mybatis无效
 }

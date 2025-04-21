@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 用户服务实现类
@@ -86,6 +87,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean delete(String username) {
         return userDao.delete(username) > 0;
+    }
+
+    @Override
+    public void addPoints(Long userId, int pointsToAdd) {
+        userDao.addPoints(userId, pointsToAdd);
+    }
+
+    @Override
+    public List<User> getUsersOrderBy(String orderBy) {
+        return List.of(userDao.getUsersOrderBy(orderBy));
     }
 
 }

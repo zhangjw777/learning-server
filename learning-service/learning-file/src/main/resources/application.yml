@@ -19,5 +19,6 @@ minio:
   video-bucket-name: videos
   cover-picture-bucket-name: cover-pictures
   profile-picture-bucket-name: profile-pictures
+  certificate-picture-bucket-name: certificate-pictures
 gateway:
   address: http://localhost:8080

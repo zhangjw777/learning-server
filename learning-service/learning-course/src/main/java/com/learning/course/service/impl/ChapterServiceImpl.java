@@ -1,8 +1,13 @@
 package com.learning.course.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.learning.course.dao.ChapterDao;
+import com.learning.course.dao.CourseDao;
+import com.learning.course.dao.UserCourseMapper;
 import com.learning.course.entity.Chapter;
+import com.learning.course.entity.UserCourse;
 import com.learning.course.service.ChapterService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,13 +20,11 @@ import java.util.List;
  * @since 2025/04/04
  */
 @Service
+@RequiredArgsConstructor
 public class ChapterServiceImpl implements ChapterService {
 
     private final ChapterDao chapterDao;
-
-    public ChapterServiceImpl(ChapterDao chapterDao) {
-        this.chapterDao = chapterDao;
-    }
+    private final UserCourseMapper userCourseMapper;
 
     @Override
     public Chapter queryById(Long id) {
@@ -71,6 +74,7 @@ public class ChapterServiceImpl implements ChapterService {
     public boolean delete(Long id) {
         return chapterDao.delete(id) > 0;
     }
+
 
     private String transformVideoTime(String videoTime) {
         double duration;
