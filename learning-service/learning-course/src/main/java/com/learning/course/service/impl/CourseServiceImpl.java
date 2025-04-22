@@ -127,10 +127,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
     }
 
     @Override
-    public Course insertRegistration(String username, Long courseId) {
+    public Boolean insertRegistration(String username, Long courseId) {
         //在user_course新增用户课程表的关系
-        courseDao.insertRegistration(username, courseId);
-        return courseDao.selectById(courseId);
+        return courseDao.insertRegistration(username, courseId)>0;
+
     }
 
     @Override

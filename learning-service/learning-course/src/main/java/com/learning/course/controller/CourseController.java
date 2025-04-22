@@ -156,12 +156,19 @@ public class CourseController {
      * @return
      */
     @PutMapping("registration")
-    public Result<Course> updateRegistrationOfCourse(@RequestParam Long courseId, @RequestParam(required = false) String username,
-                                                     @RequestHeader(value = "Authorization", required = false) String token) {
+    public ResultStatus updateRegistrationOfCourse(@RequestParam Long courseId, @RequestParam(required = false) String username,
+                                                   @RequestHeader(value = "Authorization", required = false) String token) {
+        boolean success;
         if (username != null) {
-            return Result.of(ResultStatus.SUCCESS, courseService.insertRegistration(username, courseId));
+            success = courseService.insertRegistration(username, courseId);
+        } else {
+            success = courseService.insertRegistration(JwtUtil.getUsername(token), courseId);
         }
-        return Result.of(ResultStatus.SUCCESS, courseService.insertRegistration(JwtUtil.getUsername(token), courseId));
+        if (!success)
+            return ResultStatus.USER_NOT_FOUND;
+        return ResultStatus.SUCCESS;
+
+
     }
 
     @DeleteMapping("{id}")

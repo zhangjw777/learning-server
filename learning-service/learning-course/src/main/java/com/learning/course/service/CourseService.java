@@ -116,7 +116,7 @@ public interface CourseService extends IService<Course> {
      * @param courseId 课程ID
      * @return 课程实例
      */
-    Course insertRegistration(String username, Long courseId);
+    Boolean insertRegistration(String username, Long courseId);
 
     /**
      * 通过关键词搜索课程
@@ -141,7 +141,12 @@ public interface CourseService extends IService<Course> {
      */
     void completeCourse(String userName, Long courseId) ;
 
-
+    /**
+     * 通过用户课程表查询当前的章节id
+     * @param userName
+     * @param id
+     * @return 如果没找到课程，则返回Null，如果找到，则返回章节ID，如果返回1，代表已经完成课程
+     */
     Long queryCurrentChapterId(String userName, Long id) ;
 
     Boolean checkCourseCompleted(String userName, Long courseId) ;
