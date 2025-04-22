@@ -4,6 +4,7 @@ import com.learning.common.entity.Page;
 import com.learning.common.entity.Result;
 import com.learning.common.entity.ResultStatus;
 import com.learning.user.client.CourseClient;
+import com.learning.user.entity.Certificate;
 import com.learning.user.entity.Course;
 import com.learning.user.entity.Note;
 import com.learning.user.entity.User;
@@ -46,6 +47,13 @@ public class UserController {
     public Result<Page<Note>> listNotesOfUser(@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "10") int pageSize,
                                               @PathVariable String username) {
         return courseClient.listNotesByUsername(pageNum, pageSize, username);
+    }
+
+
+    @GetMapping("{username}/certificates")
+    public Result<Page<Certificate>> listCertificatesByUserName(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize,
+                                                                 @PathVariable String username) {
+        return courseClient.listCertificatesByUsername(pageNum, pageSize, username);
     }
 
     @GetMapping

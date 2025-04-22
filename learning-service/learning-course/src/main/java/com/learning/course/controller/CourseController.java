@@ -36,8 +36,6 @@ public class CourseController {
     private final CourseViewsServiceImpl courseViewsService;
 
 
-
-
     @GetMapping("{id}")
     public Result<Course> queryCourse(@PathVariable("id") Long id, @RequestHeader(value = "Authorization", required = false) String token) {
         Course course;
@@ -53,7 +51,8 @@ public class CourseController {
 
     /**
      * 查询当前用户应该继续学习的课程章节信息 需要用到表： 用户-章节， 课程，
-     * @param id 课程id
+     *
+     * @param id    课程id
      * @param token
      * @return 返回当前用户应该继续学习的课程章节对象
      */
@@ -65,16 +64,17 @@ public class CourseController {
         Long chapterId = courseService.queryCurrentChapterId(userName, id);
         if (chapterId == null) {
             return Result.of(ResultStatus.SUCCESS, null);
-        } else if(chapterId == -1L) {
+        } else if (chapterId == -1L) {
             //表示课程已完成
             Chapter chapter = new Chapter();
             chapter.setId(-1L);
             return Result.of(ResultStatus.SUCCESS, chapter);
-        }else{
+        } else {
             Chapter chapter = chapterService.queryById(chapterId);
-            return Result.of(ResultStatus.SUCCESS,  chapter);
+            return Result.of(ResultStatus.SUCCESS, chapter);
         }
     }
+
     @GetMapping("{id}/chapters")
     public Result<List<Chapter>> listChaptersOfCourse(@PathVariable("id") Long id, @RequestHeader(value = "Authorization", required = false) String token) {
         List<Chapter> chapters;
@@ -90,6 +90,7 @@ public class CourseController {
         }
         return Result.of(ResultStatus.SUCCESS, chapters);
     }
+
     @GetMapping("{id}/questions")
     public Result<Page<Question>> listQuestionsOfCourse(@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "10") int pageSize,
                                                         @PathVariable("id") Long id, @RequestParam(defaultValue = "create_time") String orderBy) {
@@ -148,6 +149,7 @@ public class CourseController {
 
     /**
      * 用户学习某个课程，课程登记
+     *
      * @param courseId
      * @param username
      * @param token

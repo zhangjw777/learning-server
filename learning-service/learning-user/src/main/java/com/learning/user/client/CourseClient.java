@@ -2,6 +2,7 @@ package com.learning.user.client;
 
 import com.learning.common.entity.Page;
 import com.learning.common.entity.Result;
+import com.learning.user.entity.Certificate;
 import com.learning.user.entity.Course;
 import com.learning.user.entity.Note;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -39,4 +40,13 @@ public interface CourseClient {
     @GetMapping("notes")
     Result<Page<Note>> listNotesByUsername(@RequestParam int pageNum, @RequestParam int pageSize, @RequestParam String username);
 
+    /**
+     * 通过用户名查询证书
+     * @param pageNum
+     * @param pageSize
+     * @param username
+     * @return 证书列表
+     */
+    @GetMapping("certificates")
+    Result<Page<Certificate>> listCertificatesByUsername(@RequestParam int pageNum, @RequestParam int pageSize, @RequestParam String username);
 }
