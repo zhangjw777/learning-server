@@ -247,8 +247,11 @@
 
     <!--插入用户-课程关系-->
     <insert id="insertRegistration">
-        insert into user_course(user_name, course_id)
-        values (#{username}, #{courseId})
+        insert into user_course(user_name, course_id, current_chapter)
+        values (#{username},
+                #{courseId},
+                (select id from chapter where chapter.course_id = #{courseId} order by id limit 1)
+               )
     </insert>
 
     <!--为课程插入分类-->

@@ -101,7 +101,7 @@ public interface CourseDao extends BaseMapper<Course> {
     boolean selectRegistration(@Param("username") String username, @Param("courseId") Long courseId);
 
     /**
-     * 插入用户-课程关系
+     * 插入用户-课程关系,并设置当前课程章节为该课程第一个章节的id
      *
      * @param username 用户名
      * @param courseId 课程ID

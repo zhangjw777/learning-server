@@ -128,6 +128,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
 
     @Override
     public Course insertRegistration(String username, Long courseId) {
+        //在user_course新增用户课程表的关系
         courseDao.insertRegistration(username, courseId);
         return courseDao.selectById(courseId);
     }
@@ -161,6 +162,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
                 .eq(UserCourse::getCourseId, courseId);
         UserCourse userCourse = new UserCourse();
         userCourse.setIsCompleted(1);
+        userCourse.setCurrentChapter(-1L);
         userCourse.setCompletionTime(LocalDateTime.now());
         userCourseMapper.update(userCourse, queryWrapper);
     }
