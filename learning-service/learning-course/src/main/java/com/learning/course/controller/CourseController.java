@@ -9,6 +9,7 @@ import com.learning.course.entity.*;
 import com.learning.course.service.*;
 import com.github.pagehelper.PageInfo;
 import com.learning.course.service.impl.CourseViewsServiceImpl;
+import com.learning.course.service.impl.UserCourseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,7 +35,7 @@ public class CourseController {
     private final NoteService noteService;
     private final EvaluationService evaluationService;
     private final CourseViewsServiceImpl courseViewsService;
-
+    private final UserCourseService userCourseService;
 
     @GetMapping("{id}")
     public Result<Course> queryCourse(@PathVariable("id") Long id, @RequestHeader(value = "Authorization", required = false) String token) {
@@ -61,7 +62,7 @@ public class CourseController {
         if (token == null)
             throw new BusinessException(ResultStatus.UNAUTHORIZED);//登录用户才可能继续学习 如果未购买课程，前端会拦截的
         String userName = JwtUtil.getUsername(token);
-        Long chapterId = courseService.queryCurrentChapterId(userName, id);
+        Long chapterId = userCourseService.queryCurrentChapterId(userName, id);
         if (chapterId == null) {
             return Result.of(ResultStatus.SUCCESS, null);
         } else if (chapterId == -1L) {
@@ -73,6 +74,17 @@ public class CourseController {
             Chapter chapter = chapterService.queryById(chapterId);
             return Result.of(ResultStatus.SUCCESS, chapter);
         }
+    }
+
+    @PutMapping("{id}/currentChapter")
+    public ResultStatus updateCurrentChapter(@PathVariable Long id, @RequestParam Long chapterId,
+                                             @RequestHeader(value = "Authorization", required = true) String token) {
+        String userName = JwtUtil.getUsername(token);
+        if (userName != null) {
+            boolean success = userCourseService.updateUserChapter(id, chapterId, userName);
+            return success ? ResultStatus.SUCCESS :ResultStatus.ARGUMENT_NOT_VALID;
+        }
+        return ResultStatus.UNAUTHORIZED;
     }
 
     @GetMapping("{id}/chapters")

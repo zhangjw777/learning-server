@@ -146,51 +146,9 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
     }
 
     @Override
-    public void incrementChapterCount(Long courseId) {
+    public void incrementChapterCountOfCourse(Long courseId) {
         courseDao.incrementChapterCount(courseId);
     }
 
-    @Override
-    public void completeCourse(String userName, Long courseId) {
-        Integer chapterCount = courseDao.selectById(courseId).getChapterCount();
-        //判断章节是否为空以及是否完成
-        if(chapterCount==null||chapterCount<1||checkCourseCompleted(userName, courseId))
-            return;
-        // 更新用户课程表，设置完成状态和完成时间
-        LambdaQueryWrapper<UserCourse> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(UserCourse::getUserName, userName)
-                .eq(UserCourse::getCourseId, courseId);
-        UserCourse userCourse = new UserCourse();
-        userCourse.setIsCompleted(1);
-        userCourse.setCurrentChapter(-1L);
-        userCourse.setCompletionTime(LocalDateTime.now());
-        userCourseMapper.update(userCourse, queryWrapper);
-    }
-
-    @Override
-    public Long queryCurrentChapterId(String userName, Long courseId)  {
-        if (checkCourseCompleted(userName, courseId)) {
-            return -1L;//表示已完成,可给前端或者其他业务判断而需要查checkCourseCompleted
-        }
-        LambdaQueryWrapper<UserCourse> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(UserCourse::getUserName, userName)
-                .eq(UserCourse::getCourseId, courseId);
-        return userCourseMapper.selectOne(queryWrapper).getCurrentChapter();
-    }
-
-    @Override
-    public Boolean checkCourseCompleted(String userName, Long courseId)  {
-        LambdaQueryWrapper<UserCourse> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(UserCourse::getUserName, userName)
-                .eq(UserCourse::getCourseId, courseId);
-        UserCourse userCourse = userCourseMapper.selectOne(queryWrapper);
-        if (userCourse==null)
-            throw new RuntimeException("用户课程记录不存在");
-        if (userCourse.getIsCompleted()==1){
-            return true;
-        }else {
-            return false;
-        }
-    }
 
 }

@@ -69,4 +69,5 @@ public interface ChapterDao {
      */
     int delete(Long id);
 
+    Long selectNextChapterId(Long courseId, Long chapterId);
 }

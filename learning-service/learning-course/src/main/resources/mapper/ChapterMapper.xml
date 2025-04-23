@@ -40,6 +40,9 @@
         from chapter
         where course_id = #{courseId}
     </select>
+    <select id="selectNextChapterId" resultType="java.lang.Long">
+        select id from chapter where course_id = #{courseId} and id > #{chapterId} order by id limit 1
+    </select>
 
     <!--插入单个章节-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
@@ -69,6 +72,7 @@
         update_time = #{updateTime}
         where id = #{id}
     </update>
+
 
     <!--删除章节-->
     <delete id="delete">

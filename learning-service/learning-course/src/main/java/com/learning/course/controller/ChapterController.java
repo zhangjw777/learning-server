@@ -39,7 +39,7 @@ public class ChapterController {
 
     @PostMapping
     public Result<Chapter> createChapter(@RequestBody Chapter chapter) {
-        courseService.incrementChapterCount(chapter.getCourseId());
+        courseService.incrementChapterCountOfCourse(chapter.getCourseId());
         return Result.of(ResultStatus.SUCCESS, chapterService.create(chapter));
     }
 

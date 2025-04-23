@@ -1,11 +1,8 @@
 package com.learning.course.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.learning.course.dao.ChapterDao;
-import com.learning.course.dao.CourseDao;
 import com.learning.course.dao.UserCourseMapper;
 import com.learning.course.entity.Chapter;
-import com.learning.course.entity.UserCourse;
 import com.learning.course.service.ChapterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -45,6 +42,7 @@ public class ChapterServiceImpl implements ChapterService {
     public List<Chapter> listInfoByCourseId(Long courseId) {
         return chapterDao.listInfoByCourseId(courseId);
     }
+
 
     @Override
     public Chapter create(Chapter chapter) {

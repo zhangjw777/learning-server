@@ -133,21 +133,6 @@ public interface CourseService extends IService<Course> {
      */
     void synchronize();
 
-    void incrementChapterCount(Long courseId);
-    /**
-     * 用户完成整个课程
-     * @param userName
-     * @param courseId 课程ID
-     */
-    void completeCourse(String userName, Long courseId) ;
+    void incrementChapterCountOfCourse(Long courseId);
 
-    /**
-     * 通过用户课程表查询当前的章节id
-     * @param userName
-     * @param id
-     * @return 如果没找到课程，则返回Null，如果找到，则返回章节ID，如果返回1，代表已经完成课程
-     */
-    Long queryCurrentChapterId(String userName, Long id) ;
-
-    Boolean checkCourseCompleted(String userName, Long courseId) ;
 }
