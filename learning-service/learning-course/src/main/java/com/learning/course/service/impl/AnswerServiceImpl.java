@@ -1,5 +1,6 @@
 package com.learning.course.service.impl;
 
+import com.learning.course.client.UserClient;
 import com.learning.course.dao.AnswerDao;
 import com.learning.course.dao.QuestionDao;
 import com.learning.course.entity.Answer;
@@ -22,10 +23,12 @@ public class AnswerServiceImpl implements AnswerService {
 
     private final AnswerDao answerDao;
     private final QuestionDao questionDao;
+    private final UserClient userClient;
 
-    public AnswerServiceImpl(AnswerDao answerDao, QuestionDao questionDao) {
+    public AnswerServiceImpl(AnswerDao answerDao, QuestionDao questionDao, UserClient userClient) {
         this.answerDao = answerDao;
         this.questionDao = questionDao;
+        this.userClient = userClient;
     }
 
     @Override
@@ -47,6 +50,7 @@ public class AnswerServiceImpl implements AnswerService {
 
     @Override
     public Answer create(Answer answer, String username) {
+        //创建评论
         User user = new User();
         user.setUsername(username);
         answer.setAuthor(user);
@@ -54,6 +58,9 @@ public class AnswerServiceImpl implements AnswerService {
         answer.setCreateTime(now);
         answer.setUpdateTime(now);
         answerDao.insert(answer);
+        //增加这个评论作者的积分
+        userClient.addPointsByUsername(username, 10);
+        //更新问题评论数
         questionDao.increaseAnswerCountByQuestionId(answer.getQuestionId());
         return answer;
     }
