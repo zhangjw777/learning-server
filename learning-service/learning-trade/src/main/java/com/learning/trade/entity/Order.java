@@ -32,6 +32,11 @@ public class Order implements Delayed, Serializable {
      * 价格
      */
     private BigDecimal price;
+
+    /**
+     * 积分价格
+     */
+    private Integer pointsPrice;
     /**
      * 买家
      */

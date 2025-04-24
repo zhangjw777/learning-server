@@ -57,6 +57,10 @@
             <artifactId>alipay-easysdk</artifactId>
             <version>${alipay.easysdk.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

@@ -44,6 +44,12 @@ public class Course implements Serializable {
      */
     @Field(type = FieldType.Text)
     private BigDecimal price;
+
+    /**
+     * 积分价格
+     */
+
+    private Integer pointsPrice;
     /**
      * 简介
      */

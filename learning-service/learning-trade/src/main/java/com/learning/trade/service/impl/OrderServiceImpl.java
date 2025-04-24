@@ -61,9 +61,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order create(Order order, String username) {
+        //获取课程信息并设置订单信息
         Course course = courseClient.queryCourse(order.getProductId()).getData();
         order.setTradeNo(UUID.randomUUID().toString().replaceAll("-", ""));
         order.setPrice(course.getPrice());
+        order.setPointsPrice(course.getPointsPrice());
         order.setProductName(course.getName());
         order.setUsername(username);
         long current = System.currentTimeMillis();
@@ -72,6 +74,7 @@ public class OrderServiceImpl implements OrderService {
         order.setCreateTime(now);
         order.setUpdateTime(now);
         order.setStatus(0);
+        //插入订单信息
         orderDao.insert(order);
         orderDelayQueue.add(order);
         return order;

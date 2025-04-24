@@ -98,9 +98,9 @@
 
     <!--插入单个订单-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into `order`(trade_no, price, user_name, product_id, product_name, close_milliseconds,
+        insert into `order`(trade_no, price,points_price, user_name, product_id, product_name, close_milliseconds,
                             create_time, update_time, status)
-        values (#{tradeNo}, #{price}, #{username}, #{productId}, #{productName}, #{closeMilliseconds},
+        values (#{tradeNo}, #{price},#{pointsPrice}, #{username}, #{productId}, #{productName}, #{closeMilliseconds},
                 #{createTime}, #{updateTime}, #{status})
     </insert>
 

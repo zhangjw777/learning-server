@@ -16,6 +16,7 @@
         <result property="certificateUrl" column="certificate_url"/>
         <result property="isPremium" column="is_premium"/>
         <result property="pointsReward" column="points_reward"/>
+        <result property="pointsPrice" column="points_price"/> <!-- 新增 -->
         <result property="chapterCount" column="chapter_count"/>
         <association property="teacher" javaType="com.learning.course.entity.User">
             <id property="id" column="uid"/>
@@ -42,6 +43,7 @@
                c.certificate_url,
                c.is_premium,
                c.points_reward,
+               c.points_price, <!-- 新增 -->
                u.id uid,
                u.username,
                u.full_name,
@@ -56,6 +58,7 @@
         select c.id,
         c.name,
         c.price,
+        c.points_price,
         c.description,
         c.user_name,
         c.average_score,
@@ -88,6 +91,7 @@
         select c.id,
                c.name,
                c.price,
+               c.points_price,
                c.description,
                c.user_name,
                c.average_score,
@@ -145,6 +149,7 @@
         select c.id,
                c.name,
                c.price,
+               c.points_price,
                c.description,
                c.user_name,
                c.average_score,
@@ -178,10 +183,16 @@
 
     <!--插入单个-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into course(name, price, description, user_name, average_score, cover_picture, certificate_url,approved,category_id,
-                           is_premium,points_reward,create_time, update_time)
-        values (#{name}, #{price}, #{description}, #{teacher.username}, #{averageScore}, #{coverPicture},#{certificate_url},
-                #{approved}, #{categoryId},#{isPremium},#{pointsReward}, #{createTime}, #{updateTime})
+        insert into course(
+            name, price, description, user_name, average_score, 
+            cover_picture, certificate_url, approved, category_id,
+            is_premium, points_reward, points_price, <!-- 新增 -->
+            create_time, update_time)
+        values (
+            #{name}, #{price}, #{description}, #{teacher.username}, #{averageScore},
+            #{coverPicture}, #{certificateUrl}, #{approved}, #{categoryId},
+            #{isPremium}, #{pointsReward}, #{pointsPrice}, <!-- 新增 -->
+            #{createTime}, #{updateTime})
     </insert>
 
     <!--更新-->
@@ -218,8 +229,11 @@
         <if test="isPremium!=null">
             is_premium = #{isPremium},
         </if>
-        <if test="pointsReward!=null">
+        <if test="pointsReward != null">
             points_reward = #{pointsReward},
+        </if>
+        <if test="pointsPrice != null"> <!-- 新增 -->
+            points_price = #{pointsPrice},
         </if>
         update_time = #{updateTime}
         where id = #{id}
