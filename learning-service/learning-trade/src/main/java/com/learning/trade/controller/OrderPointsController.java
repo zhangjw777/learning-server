@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class OrderPointsController {
     private final OrderService orderService;
 
-    @GetMapping
+    @PostMapping
     public Result<Order> newOrder(@RequestBody Order order, @RequestHeader("Authorization") String token){
        String username = JwtUtil.getUsername(token);
         Order orderBack = orderService.create(order, username);

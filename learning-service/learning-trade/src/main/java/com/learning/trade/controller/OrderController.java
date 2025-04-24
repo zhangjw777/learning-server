@@ -50,7 +50,14 @@ public class OrderController {
     public Result<Order> updateOrder(@RequestBody Order order) {
         return Result.of(ResultStatus.SUCCESS, orderService.update(order));
     }
-
+    @PutMapping("{id}/cancel")
+    public ResultStatus cancelOrder(@PathVariable("id") Long id) {
+        boolean success = orderService.delete(id);
+        if (!success) {
+            return ResultStatus.ARGUMENT_NOT_VALID;
+        }
+        return ResultStatus.SUCCESS;
+    }
     @DeleteMapping("{id}")
     public ResultStatus deleteOrder(@PathVariable("id") Long id) {
         orderService.delete(id);
