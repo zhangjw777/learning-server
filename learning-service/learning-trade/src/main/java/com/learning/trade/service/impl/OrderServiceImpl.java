@@ -87,7 +87,7 @@ public class OrderServiceImpl implements OrderService {
         if (order.getStatus() != null && order.getStatus() != 0) {
             orderDelayQueue.removeIf(delayOrder -> delayOrder.getId().equals(order.getId()));
         }
-        return orderDao.selectById(order.getId());
+        return order;
     }
 
     @Override

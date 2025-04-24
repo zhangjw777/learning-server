@@ -62,6 +62,12 @@ public class UserController {
         return Result.of(ResultStatus.SUCCESS, Page.of(pageInfo.getList(), pageInfo.getTotal()));
     }
 
+    /**
+     *
+     * @param username
+     * @param pointsToAdd 传负数则减积分
+     * @return
+     */
     @PutMapping("{username}/points")
     public Result<User> addPointsByUsername(@PathVariable String username, @RequestParam int pointsToAdd) {
         userService.addPoints(username, pointsToAdd);
