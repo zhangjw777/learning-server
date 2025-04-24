@@ -52,7 +52,7 @@ public class UserController {
 
     @GetMapping("{username}/certificates")
     public Result<Page<Certificate>> listCertificatesByUserName(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "10") Integer pageSize,
-                                                                 @PathVariable String username) {
+                                                                @PathVariable String username) {
         return courseClient.listCertificatesByUsername(pageNum, pageSize, username);
     }
 
@@ -60,6 +60,12 @@ public class UserController {
     public Result<Page<User>> listUser(@RequestParam(defaultValue = "1") int pageNum, @RequestParam(defaultValue = "10") int pageSize) {
         PageInfo<User> pageInfo = userService.list(pageNum, pageSize);
         return Result.of(ResultStatus.SUCCESS, Page.of(pageInfo.getList(), pageInfo.getTotal()));
+    }
+
+    @PutMapping("{username}/points")
+    public Result<User> addPointsByUsername(@PathVariable String username, @RequestParam int pointsToAdd) {
+        userService.addPoints(username, pointsToAdd);
+        return Result.of(ResultStatus.SUCCESS, null);
     }
 
     @PostMapping

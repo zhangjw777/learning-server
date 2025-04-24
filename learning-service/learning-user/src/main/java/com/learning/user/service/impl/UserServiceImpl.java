@@ -90,8 +90,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addPoints(Long userId, int pointsToAdd) {
-        userDao.addPoints(userId, pointsToAdd);
+    public void addPoints(String username, int pointsToAdd) {
+        userDao.addPoints(username, pointsToAdd);
     }
 
     @Override

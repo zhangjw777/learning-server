@@ -56,10 +56,10 @@ public interface UserService {
 
     /**
      * 增加用户积分
-     * @param userId 用户ID (或 userName)
+     * @param username 用户名 (或 userName)
      * @param pointsToAdd 增加的积分数
      */
-    void addPoints(Long userId, int pointsToAdd);
+    void addPoints(String username, int pointsToAdd);
 
     /**
      * 获取用户列表并排序

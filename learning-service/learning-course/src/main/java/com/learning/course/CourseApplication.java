@@ -3,6 +3,7 @@ package com.learning.course;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
 /**
@@ -11,6 +12,7 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
  * @author 张家伟
  * @since 2025/04/04
  */
+@EnableFeignClients
 @EnableElasticsearchRepositories
 @SpringBootApplication
 @EnableDiscoveryClient

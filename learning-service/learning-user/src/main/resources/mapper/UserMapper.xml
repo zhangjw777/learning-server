@@ -13,6 +13,7 @@
         <result property="profilePicture" column="profile_picture"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
+        <result property="points" column="points"/>
         <association property="role" javaType="com.learning.user.entity.Role">
             <id property="id" column="role_id"/>
             <result property="name" column="role_name"/>
@@ -30,6 +31,7 @@
                u.email_address,
                u.phone_number,
                u.profile_picture,
+               u.points,
                u.create_time,
                u.update_time,
                r.name role_name
@@ -49,6 +51,7 @@
                u.email_address,
                u.phone_number,
                u.profile_picture,
+               u.points,
                u.create_time,
                u.update_time,
                r.name role_name
@@ -65,6 +68,7 @@
                u.email_address,
                u.phone_number,
                u.profile_picture,
+               u.points,
                u.create_time,
                u.update_time,
                r.name role_name
@@ -82,6 +86,7 @@
                u.email_address,
                u.phone_number,
                u.profile_picture,
+               u.points,
                u.create_time,
                u.update_time,
                r.name role_name
@@ -98,11 +103,11 @@
         values (#{username}, #{password}, #{fullName}, #{gender}, #{role.id}, #{emailAddress},
                 #{phoneNumber}, #{profilePicture}, #{createTime}, #{updateTime})
     </insert>
-    <insert id="addPoints">
+    <update id="addPoints">
         update user
         set points = points + #{pointsToAdd}
-        where id = #{id}
-    </insert>
+        where username = #{username}
+    </update>
 
     <!--更新用户-->
     <update id="update">

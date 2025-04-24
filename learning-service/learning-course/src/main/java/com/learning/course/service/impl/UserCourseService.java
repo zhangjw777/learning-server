@@ -2,7 +2,7 @@ package com.learning.course.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.learning.course.dao.CertificateMapper;
+import com.learning.course.client.UserClient;
 import com.learning.course.dao.ChapterDao;
 import com.learning.course.dao.CourseDao;
 import com.learning.course.dao.UserCourseDao;
@@ -24,7 +24,7 @@ public class UserCourseService extends ServiceImpl<UserCourseDao, UserCourse> im
     private final CourseDao courseDao;
     private final ChapterDao chapterDao;
     private final ICertificateService certificateService;
-
+    private final UserClient userClient;
     @Override
     public void completeCourse(String userName, Long courseId) {
         log.info("设置课程已完成");
@@ -42,6 +42,9 @@ public class UserCourseService extends ServiceImpl<UserCourseDao, UserCourse> im
         userCourse.setCurrentChapter(-1L);
         userCourse.setCompletionTime(LocalDateTime.now());
         userCourseDao.update(userCourse, queryWrapper);
+        //调用用户客户端远程调用，更新用户积分
+       userClient.addPointsByUsername(userName, courseDao.selectById(courseId).getPointsReward());
+        log.info("用户积分增加");
     }
 
     @Override

@@ -72,6 +72,11 @@ public class User implements Serializable {
      */
     @URL(message = "头像链接必须是一个URL", groups = {Create.class, Update.class})
     private String profilePicture;
+
+    /**
+     * 积分
+     */
+    private Integer points;
     /**
      * 创建时间
      */

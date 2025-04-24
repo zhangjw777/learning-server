@@ -60,7 +60,7 @@ public interface UserDao {
      */
     int delete(String username);
 
-    void addPoints(Long userId, int pointsToAdd);
+    void addPoints(String username, int pointsToAdd);
 
     User getUsersOrderBy(String orderBy);
 }
