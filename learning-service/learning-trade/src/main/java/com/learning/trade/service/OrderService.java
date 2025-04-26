@@ -79,4 +79,5 @@ public interface OrderService {
      */
     boolean delete(Long id);
 
+    PageInfo<Order> listByUsername(int pageNumber, int pageSize, String username);
 }

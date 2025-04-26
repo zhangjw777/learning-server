@@ -31,8 +31,15 @@ public class OrderController {
     }
 
     @GetMapping
-    public Result<Page<Order>> listOrder(@RequestParam(defaultValue = "1") int pageNumber, @RequestParam(defaultValue = "10") int pageSize) {
-        PageInfo<Order> pageInfo = orderService.list(pageNumber, pageSize);
+    public Result<Page<Order>> listOrder(@RequestParam(defaultValue = "1") int pageNumber, @RequestParam(defaultValue = "10") int pageSize
+            , @RequestParam(required = false) String username) {
+        PageInfo<Order> pageInfo;
+        if (username != null)
+            pageInfo = orderService.listByUsername(pageNumber, pageSize, username);
+        else {
+            pageInfo = orderService.list(pageNumber, pageSize);
+
+        }
         return Result.of(ResultStatus.SUCCESS, Page.of(pageInfo.getList(), pageInfo.getTotal()));
     }
 
@@ -50,14 +57,16 @@ public class OrderController {
     public Result<Order> updateOrder(@RequestBody Order order) {
         return Result.of(ResultStatus.SUCCESS, orderService.update(order));
     }
-    @PutMapping("{id}/cancel")
+
+    /*@PutMapping("{id}/cancel")
     public ResultStatus cancelOrder(@PathVariable("id") Long id) {
         boolean success = orderService.delete(id);
         if (!success) {
             return ResultStatus.ARGUMENT_NOT_VALID;
         }
-        return ResultStatus.SUCCESS;
-    }
+        return ResultStatus.SUCCESS;*//*
+    }*/
+
     @DeleteMapping("{id}")
     public ResultStatus deleteOrder(@PathVariable("id") Long id) {
         orderService.delete(id);

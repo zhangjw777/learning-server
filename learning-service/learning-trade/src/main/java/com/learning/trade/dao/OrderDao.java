@@ -78,4 +78,5 @@ public interface OrderDao {
      */
     int delete(Long id);
 
+    List<Order> listByUsername(String username);
 }

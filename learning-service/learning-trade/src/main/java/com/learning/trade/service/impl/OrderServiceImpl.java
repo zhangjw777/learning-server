@@ -1,5 +1,6 @@
 package com.learning.trade.service.impl;
 
+import com.learning.common.entity.Page;
 import com.learning.trade.client.CourseClient;
 import com.learning.trade.dao.OrderDao;
 import com.learning.trade.entity.Course;
@@ -94,6 +95,12 @@ public class OrderServiceImpl implements OrderService {
     public boolean delete(Long id) {
         orderDelayQueue.removeIf(delayOrder -> delayOrder.getId().equals(id));
         return orderDao.delete(id) > 0;
+    }
+
+    @Override
+    public PageInfo<Order> listByUsername(int pageNumber, int pageSize, String username) {
+        PageHelper.startPage(pageNumber, pageSize);
+        return PageInfo.of(orderDao.listByUsername(username));
     }
 
 }
