@@ -1,7 +1,6 @@
 package com.learning.course.service.impl;
 
 import com.learning.course.dao.ChapterDao;
-import com.learning.course.dao.UserCourseMapper;
 import com.learning.course.entity.Chapter;
 import com.learning.course.service.ChapterService;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +20,6 @@ import java.util.List;
 public class ChapterServiceImpl implements ChapterService {
 
     private final ChapterDao chapterDao;
-    private final UserCourseMapper userCourseMapper;
 
     @Override
     public Chapter queryById(Long id) {

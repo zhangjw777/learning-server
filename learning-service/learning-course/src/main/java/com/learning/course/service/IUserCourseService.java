@@ -3,6 +3,9 @@ package com.learning.course.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.learning.course.entity.UserCourse;
 
+import java.util.List;
+import java.util.Map;
+
 public interface IUserCourseService extends IService<UserCourse> {
     /**
      * 用户完成整个课程
@@ -29,4 +32,11 @@ public interface IUserCourseService extends IService<UserCourse> {
      * @return
      */
     boolean updateUserChapter(Long courseId, Long chapterId, String userName);
+
+    /**
+     * 统计用户课程表 课程用户的个数
+     *
+     * @return 键：课程id,值：用户个数
+     */
+    List<Map<String, Long>> statisticUserCourse();
 }

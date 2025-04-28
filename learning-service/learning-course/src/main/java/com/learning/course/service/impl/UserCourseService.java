@@ -14,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -91,5 +93,10 @@ public class UserCourseService extends ServiceImpl<UserCourseDao, UserCourse> im
         UserCourse userCourse = new UserCourse();
         userCourse.setCurrentChapter(nextChapterId);
         return userCourseDao.update(userCourse, queryWrapper)>0;
+    }
+
+    @Override
+    public List<Map<String, Long>> statisticUserCourse(){
+        return userCourseDao.statisticUserCourse();
     }
 }

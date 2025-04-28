@@ -9,6 +9,7 @@ import com.learning.course.entity.*;
 import com.learning.course.service.*;
 import com.github.pagehelper.PageInfo;
 import com.learning.course.service.impl.CourseViewsServiceImpl;
+import com.learning.course.service.impl.StatisticImpl;
 import com.learning.course.service.impl.UserCourseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 课程控制器
@@ -36,6 +38,7 @@ public class CourseController {
     private final EvaluationService evaluationService;
     private final CourseViewsServiceImpl courseViewsService;
     private final UserCourseService userCourseService;
+    private final IStatistic statisticImpl;
 
     @GetMapping("{id}")
     public Result<Course> queryCourse(@PathVariable("id") Long id, @RequestHeader(value = "Authorization", required = false) String token) {
@@ -203,4 +206,14 @@ public class CourseController {
         return ResultStatus.SUCCESS;
     }
 
+    @GetMapping("statistic/hotness")
+    public Result<List<Map<String, Object>>> statisticCourseHotness() {
+
+        return Result.of(ResultStatus.SUCCESS, statisticImpl.statisticCourseHotness());
+    }
+
+    @GetMapping("statistic/finishRate")
+    public Result<List<Map<String, Object>>> statisticCourseFinishRate() {
+        return Result.of(ResultStatus.SUCCESS, statisticImpl.statisticCourseFinishRate());
+    }
 }

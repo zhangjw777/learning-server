@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.learning.course.dao.UserCourseMapper">
+<mapper namespace="com.learning.course.dao.UserCourseDao">
 
+    <select id="statisticUserCourse" resultType="hashmap">
+        SELECT course_id AS courseId, COUNT(DISTINCT user_name) AS userCount
+        FROM user_course
+        GROUP BY course_id;
+    </select>
+    <select id="list" resultType="com.learning.course.entity.UserCourse">
+        select * from user_course
+    </select>
+    <select id="getCourseCompletionStats" resultType="java.util.Map">
+        SELECT
+            course_id,
+            COUNT(*) AS total_learners,
+            SUM(is_completed) AS completed_learners
+        FROM
+            user_course
+        GROUP BY
+            course_id
+    </select>
 </mapper>

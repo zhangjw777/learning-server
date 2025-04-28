@@ -1,11 +1,9 @@
 package com.learning.course.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.learning.course.dao.CertificateMapper;
 import com.learning.course.dao.CourseDao;
 import com.learning.course.dao.CourseSearchDao;
-import com.learning.course.dao.UserCourseMapper;
 import com.learning.course.entity.*;
 import com.learning.course.service.CourseService;
 import com.github.pagehelper.PageHelper;
@@ -35,7 +33,6 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
     private final CourseDao courseDao;
     private final CourseSearchDao courseSearchDao;
     private final CourseViewsServiceImpl courseViewsServiceImpl;
-    private final UserCourseMapper userCourseMapper;
     private final CertificateMapper certificateMapper;
 
     @Override
