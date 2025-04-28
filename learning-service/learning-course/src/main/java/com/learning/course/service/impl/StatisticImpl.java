@@ -3,10 +3,7 @@ package com.learning.course.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.learning.course.client.UserClient;
 import com.learning.course.dao.*;
-import com.learning.course.entity.Category;
-import com.learning.course.entity.Course;
-import com.learning.course.entity.User;
-import com.learning.course.entity.UserCourse;
+import com.learning.course.entity.*;
 import com.learning.course.service.IStatistic;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +30,6 @@ public class StatisticImpl implements IStatistic {
     private final QuestionDao questionDao;
     private final AnswerDao answerDao;
     private final CategoryDao categoryDao;
-    private final UserClient userClient;
     private final UserClient userClient;
 
     @Override
@@ -205,10 +201,11 @@ public class StatisticImpl implements IStatistic {
     public List<Map<String, Object>> statisticTeacherMatrix() {
 //        {
 //            name: "张老师", // 教师用户名或姓名
-//            // 指标值：平均完播率(%), 每课程平均问题数, 学生人均积分获取量
+//            // 指标值：平均完播率(%), 每课程平均问题数, 课程平均热度
 //            value: [85, 15, 350],
 //        }
         List<Map<String, Object>> resultList= new ArrayList<>();
+        List<Question> questions = questionDao.list();
         List<Course> courses = courseDao.list(true, "create_time");
         List<User> teachers = userClient.listUserByRole("教师").getData();
         Map<String, List<Course>> teacherCourseMap= new HashMap<>();
@@ -225,19 +222,56 @@ public class StatisticImpl implements IStatistic {
             }
         }
         //计算每个老师课程中的课程平均完成度
-        List<Map<String, Object>> coursesFinishRate = this.statisticCourseFinishRate();
-        float averageFinishRate = 0;
-        for (Map<String, Object> mapItem : coursesFinishRate) {
-            String courseName = (String)mapItem.get("name");
-            int rate = (int)mapItem.get("rate");
-            for (Course course : courses) {
-                if (course.getName().equals(courseName)){
+        List<Map<String, Object>> coursesFinishRate = this.statisticCourseFinishRate(); //[{name:value rate:value}]
+        List<Map<String, Object>> courseHotnessList = this.statisticCourseHotness();// [{name:value,hotness:value}]
+        teacherCourseMap.forEach((teacherName, courseList) -> {
+            //获取课程完播率 课程问题平均数
 
+            float averageFinishRate = 0;
+            float averageQuestionCount = 0;
+            float averageHotness = 0;
+            for (Course course : courseList) {
+                //从coursesFinishRate中找到是否存在course,判断条件 课程名字相同
+                Map<String, Object> finishRateMap = coursesFinishRate.stream()
+                        .filter(item -> item.get("name").equals(course.getName()))
+                        .findFirst()
+                        .orElse(null);
+                if (finishRateMap != null) {
+                    averageFinishRate += ((Integer) finishRateMap.get("rate")).floatValue();
                 }
-            }
-        }
+                //从questions中查找有没有该课程，并统计数量
+                long questionCount = questions.stream()
+                        .filter(question -> question.getCourseId().equals(course.getId()))
+                        .count();
+                if (questionCount > 0){
+                    averageQuestionCount+= questionCount;
+                }
+                //从courseHotnessList中查找有没有该课程，并统计热度
+                Map<String, Object> hotnessMap = courseHotnessList.stream()
+                        .filter(item -> item.get("name").equals(course.getName()))
+                        .findFirst()
+                        .orElse(null);
+                if (hotnessMap != null)
+                    averageHotness  +=((Integer) hotnessMap.get("hotness")).floatValue();
 
-        return List.of();
+            }
+            //将三者进行处理后，封装为List
+            averageFinishRate /= courseList.size();
+            averageQuestionCount  /= courseList.size();
+            averageHotness /= courseList.size();
+            Map<String, Object> map = new HashMap<>();
+            map.put("name", teacherName);
+            List <Integer> value= new ArrayList<>();
+            value.add((int) (averageFinishRate * 100));
+            value.add((int) averageQuestionCount);
+            value.add((int) averageHotness);
+            map.put("value",value );
+            resultList.add(map);
+        });
+
+
+
+        return resultList;
     }
 
     /**

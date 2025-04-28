@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.learning.course.dao.StatisticDao">
+
+    <!-- 查询所有教师的用户名和姓名 (假设角色ID 2 代表教师) -->
+    <select id="selectAllTeacherNames" resultType="java.util.Map">
+        SELECT username, full_name as fullName
+        FROM user
+        WHERE role_id = 2
+    </select>
+
+    <!-- 根据教师用户名查询其发布的所有课程 ID -->
+    <select id="selectCourseIdsByTeacherUsername" resultType="java.lang.Long">
+        SELECT id
+        FROM course
+        WHERE user_name = #{teacherUsername}
+    </select>
+
+    <!-- 根据课程 ID 列表统计这些课程下的总提问数 -->
+    <select id="countQuestionsByCourseIds" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM question
+        WHERE course_id IN
+        <if test="courseIds != null and !courseIds.isEmpty()">
+            <foreach item="courseId" collection="courseIds" open="(" separator="," close=")">
+                #{courseId}
+            </foreach>
+        </if>
+        <if test="courseIds == null or courseIds.isEmpty()">
+            (-1) -- 如果列表为空，确保查询不报错且返回0
+        </if>
+    </select>
+
+    <!-- 根据课程 ID 列表查询学习这些课程的所有学生用户名 (去重) -->
+    <select id="selectStudentUsernamesByCourseIds" resultType="java.lang.String">
+        SELECT DISTINCT user_name
+        FROM user_course
+        WHERE course_id IN
+        <if test="courseIds != null and !courseIds.isEmpty()">
+            <foreach item="courseId" collection="courseIds" open="(" separator="," close=")">
+                #{courseId}
+            </foreach>
+        </if>
+        <if test="courseIds == null or courseIds.isEmpty()">
+            (-1) -- 如果列表为空，确保查询不报错且返回空列表
+        </if>
+    </select>
+
+    <!-- 根据课程 ID 列表和学生用户名列表，统计这些学生因完成这些课程而获得的总积分奖励 -->
+    <select id="sumCompletedCoursePointsReward" resultType="java.lang.Integer">
+        SELECT IFNULL(SUM(c.points_reward), 0)
+        FROM user_course uc
+        JOIN course c ON uc.course_id = c.id
+        WHERE uc.is_completed = 1
+        AND uc.course_id IN
+        <if test="courseIds != null and !courseIds.isEmpty()">
+            <foreach item="courseId" collection="courseIds" open="(" separator="," close=")">
+                #{courseId}
+            </foreach>
+        </if>
+        <if test="courseIds == null or courseIds.isEmpty()">
+            (-1)
+        </if>
+        AND uc.user_name IN
+        <if test="studentUsernames != null and !studentUsernames.isEmpty()">
+            <foreach item="studentUsername" collection="studentUsernames" open="(" separator="," close=")">
+                #{studentUsername}
+            </foreach>
+        </if>
+        <if test="studentUsernames == null or studentUsernames.isEmpty()">
+            ('') -- 如果学生列表为空，确保查询不报错且返回0
+        </if>
+    </select>
+
+    <!-- 根据课程 ID 列表查询课程对应的教师用户名 -->
+    <select id="selectTeacherUsernameByCourseIds" resultType="java.util.Map">
+        SELECT id as courseId, user_name as teacherUsername
+        FROM course
+        WHERE id IN
+        <if test="courseIds != null and !courseIds.isEmpty()">
+            <foreach item="courseId" collection="courseIds" open="(" separator="," close=")">
+                #{courseId}
+            </foreach>
+        </if>
+        <if test="courseIds == null or courseIds.isEmpty()">
+            (-1)
+        </if>
+    </select>
+</mapper>

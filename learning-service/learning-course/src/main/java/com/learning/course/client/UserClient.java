@@ -29,5 +29,5 @@ public interface UserClient {
     Result<List<Map<String,Object>>> getPointsMap();
 
     @GetMapping("/users/role")
-    Result<List<User>> listUserByRole(String RoleName);
+    Result<List<User>> listUserByRole(@RequestParam String roleName);
 }
