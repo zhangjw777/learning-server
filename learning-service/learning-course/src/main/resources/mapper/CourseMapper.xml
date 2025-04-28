@@ -258,6 +258,9 @@
         where user_name = #{username}
           and course_id = #{courseId}
     </select>
+    <select id="statisticCourseOfCategoryCounts" resultType="java.util.Map">
+        select category_id,count(*) as count from course group by category_id
+    </select>
 
     <!--插入用户-课程关系-->
     <insert id="insertRegistration">

@@ -15,4 +15,6 @@ public interface UserCourseDao extends BaseMapper<UserCourse> {
     List<Map<String, Long>> statisticUserCourse();
 
     List<Map<String, Object>> getCourseCompletionStats();
+
+    List<Map<String, Object>> statisticCountOf7Days();
 }

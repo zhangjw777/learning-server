@@ -4,6 +4,7 @@ import com.learning.user.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户数据库访问层
@@ -63,4 +64,8 @@ public interface UserDao {
     void addPoints(String username, int pointsToAdd);
 
     User getUsersOrderBy(String orderBy);
+
+    List<Map<String, Object>> selectPointsMap();
+
+    List<User> listByRoleName(String roleName);
 }

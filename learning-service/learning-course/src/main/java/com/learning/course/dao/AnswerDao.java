@@ -4,6 +4,7 @@ import com.learning.course.entity.Answer;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 答案数据库访问层
@@ -67,4 +68,8 @@ public interface AnswerDao {
      * @return
      */
     int deleteByQuestionId(Long id);
+
+    List<Map<String, Object>> statisticCountOf7Days();
+
+    Integer count();
 }

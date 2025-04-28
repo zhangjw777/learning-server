@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户服务实现类
@@ -97,6 +98,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getUsersOrderBy(String orderBy) {
         return List.of(userDao.getUsersOrderBy(orderBy));
+    }
+
+    @Override
+    public List<Map<String, Object>> getPointsMap() {
+        List<Map<String, Object>> resultList = userDao.selectPointsMap();
+        return resultList;
+    }
+
+    @Override
+    public List<User> listUserByRole(String roleName) {
+        return userDao.listByRoleName(roleName);
     }
 
 }

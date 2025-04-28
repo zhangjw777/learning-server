@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 课程数据库访问层
@@ -133,4 +134,6 @@ public interface CourseDao extends BaseMapper<Course> {
      *
      */
     void incrementChapterCount(Long courseId);
+
+    List<Map<String, Object>> statisticCourseOfCategoryCounts();
 }

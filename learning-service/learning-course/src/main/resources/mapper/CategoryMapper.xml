@@ -22,6 +22,9 @@
         select id, name, parent_id, create_time, update_time
         from category
     </select>
+    <select id="statisticCourseOfCategoryCount" resultType="java.util.Map">
+        select category_id,count(*) from category_course group by category_id
+    </select>
 
     <!--插入单个分类-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">

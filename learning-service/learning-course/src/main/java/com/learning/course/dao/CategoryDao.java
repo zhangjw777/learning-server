@@ -4,6 +4,8 @@ import com.learning.course.entity.Category;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * 分类数据库访问层
@@ -52,5 +54,6 @@ public interface CategoryDao {
      * @return 影响行数
      */
     int delete(Integer id);
+
 
 }

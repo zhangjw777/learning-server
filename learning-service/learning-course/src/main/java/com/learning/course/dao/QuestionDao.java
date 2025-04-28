@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 问题数据库访问层
@@ -79,4 +80,5 @@ public interface QuestionDao {
      */
     int decreaseAnswerCountByAnswerId(Long answerId);
 
+    List<Map<String, Object>> statisticCountOf7Days();
 }

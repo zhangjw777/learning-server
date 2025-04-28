@@ -4,6 +4,7 @@ import com.learning.user.entity.User;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户服务接口
@@ -68,4 +69,7 @@ public interface UserService {
      */
     List<User> getUsersOrderBy(String orderBy);
 
+    List<Map<String, Object>> getPointsMap();
+
+    List<User> listUserByRole(String roleName);
 }

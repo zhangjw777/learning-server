@@ -216,4 +216,26 @@ public class CourseController {
     public Result<List<Map<String, Object>>> statisticCourseFinishRate() {
         return Result.of(ResultStatus.SUCCESS, statisticImpl.statisticCourseFinishRate());
     }
+    @GetMapping("statistic/userActivity")
+    public Result<List<Map<String, Object>>> statisticUserActivity() {
+        return Result.of(ResultStatus.SUCCESS, statisticImpl.statisticUserActivity());
+    }
+
+    @GetMapping("statistic/pointsRate")
+    public Result<List<Map<String, Object>>> statisticPointsSourceRate() {
+        return Result.of(ResultStatus.SUCCESS, statisticImpl.statisticPointsSourceRate());
+    }
+    @GetMapping("statistic/catDistribution")
+    public Result<List<Map<String, Object>>> statisticCourseCategoryDistribute() {
+        return Result.of(ResultStatus.SUCCESS, statisticImpl.statisticCourseCategoryDistribute());
+    }
+
+    @GetMapping("statistic/pointsRank")
+    public Result<List<Map<String, Object>>> statisticPointsRank() {
+        return Result.of(ResultStatus.SUCCESS, statisticImpl.statisticPointsRank());
+    }
+    @GetMapping("statistic/teacherMatrix")
+    public Result<List<Map<String, Object>>> statisticTeacherMatrix() {
+        return Result.of(ResultStatus.SUCCESS, statisticImpl.statisticTeacherMatrix());
+    }
 }

@@ -13,6 +13,9 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * 用户控制器
  *
@@ -61,7 +64,11 @@ public class UserController {
         PageInfo<User> pageInfo = userService.list(pageNum, pageSize);
         return Result.of(ResultStatus.SUCCESS, Page.of(pageInfo.getList(), pageInfo.getTotal()));
     }
-
+    @GetMapping("role")
+    public Result<List<User>> listUserByRole(@RequestParam String roleName) {
+        List<User> users = userService.listUserByRole(roleName);
+        return Result.of(ResultStatus.SUCCESS, users);
+    }
     /**
      *
      * @param username
@@ -91,5 +98,9 @@ public class UserController {
         return ResultStatus.SUCCESS;
     }
 
-
+@GetMapping("pointsRank")
+    public Result<List<Map<String, Object>>> queryPointsMap() {
+        List<Map<String, Object>> pointsRank = userService.getPointsMap();
+        return Result.of(ResultStatus.SUCCESS, pointsRank);
+    }
 }

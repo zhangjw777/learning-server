@@ -36,7 +36,7 @@
         where e.id = #{id}
     </select>
 
-    <!--查询所有评价-->
+    <!--查询所有评价 更新时间降序-->
     <select id="list" resultMap="EvaluationMap">
         select e.id,
                e.score,
@@ -52,6 +52,7 @@
                 c.name as course_name
         from evaluation e
                  join user u join learning.course c on e.course_id = c.id and u.username = e.user_name
+        order by e.update_time desc
     </select>
 
     <!--通过课程ID查询所有评价-->
@@ -104,6 +105,22 @@
         SELECT floor(avg(score))
         from evaluation
         where course_id = #{courseId}
+    </select>
+    <select id="count" resultType="java.lang.Integer">
+        select count(*)
+    </select>
+    <select id="statisticCountOf7Days" resultType="java.util.Map">
+        SELECT
+            DATE(update_time) AS evaluation_date, -- 提取日期部分，作为分组依据和返回的日期
+            COUNT(*) AS count                     -- 统计每个分组（即每一天）的评价数量
+        FROM
+            evaluation                            -- 从评价表查询
+        WHERE
+            update_time >= CURDATE() - INTERVAL 7 DAY -- 筛选条件：创建时间大于等于7天前的日期（包含今天）
+        GROUP BY
+            evaluation_date                       -- 按提取出的日期进行分组
+        ORDER BY
+            evaluation_date;                      -- 按日期升序排序（可选，让结果更清晰）
     </select>
 
 </mapper>

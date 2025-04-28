@@ -65,6 +65,22 @@
                  join user u on u.username = a.user_name
         where a.question_id = #{questionId}
     </select>
+    <select id="statisticCountOf7Days" resultType="java.util.Map">
+        SELECT
+            DATE(update_time) AS answer_date, -- 提取日期部分，作为分组依据和返回的日期
+            COUNT(*) AS count                     -- 统计每个分组（即每一天）
+        FROM
+            answer
+        WHERE
+            update_time >= CURDATE() - INTERVAL 7 DAY -- 筛选条件：创建时间大于等于7天前的日期（包含今天）
+        GROUP BY
+            answer_date                       -- 按提取出的日期进行分组
+        ORDER BY
+            answer_date;                      -- 按日期升序排序（可选，让结果更清晰）
+    </select>
+    <select id="count" resultType="java.lang.Integer">
+        select count(*) from answer
+    </select>
 
     <!--插入单个答案-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">

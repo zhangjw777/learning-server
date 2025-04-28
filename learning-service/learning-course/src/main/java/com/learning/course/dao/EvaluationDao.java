@@ -4,6 +4,7 @@ import com.learning.course.entity.Evaluation;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 评价数据库访问层
@@ -25,7 +26,7 @@ public interface EvaluationDao {
     /**
      * 查询所有评价
      *
-     * @return 评价列表
+     * @return 评价列表 更新时间降序
      */
     List<Evaluation> list();
 
@@ -69,4 +70,7 @@ public interface EvaluationDao {
      */
     Integer selectAverageScoreByCourseId(Long courseId);
 
+    Integer count();
+
+    List<Map<String, Object>> statisticCountOf7Days();
 }

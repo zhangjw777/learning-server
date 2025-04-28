@@ -68,7 +68,7 @@ create table course
 )
     comment '课程';
 
-create table user
+create table evaluation
 (
     id          bigint auto_increment comment '评价ID'
         primary key,
@@ -181,6 +181,8 @@ create table user_course
     course_id       bigint      not null comment '课程ID',
     is_completed    TINYINT     NOT NULL DEFAULT 0 COMMENT '用户是否已完成该课程 (1:是, 0:否)',
     completion_time DATETIME    NULL COMMENT '课程完成时间',
-    current_chapter BIGINT NULL COMMENT '用户当前观看的章节ID'
+    current_chapter BIGINT NULL COMMENT '用户当前观看的章节ID',
+    create_time     datetime    not null comment '创建时间',
+    update_time     datetime    not null comment '修改时间'
 );
 

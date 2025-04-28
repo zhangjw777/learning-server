@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 笔记数据库访问层
@@ -79,4 +80,7 @@ public interface NoteDao {
      */
     int delete(Long id);
 
+    List<Map<String, Object>> statisticCountOf7Days();
+
+    Integer count();
 }

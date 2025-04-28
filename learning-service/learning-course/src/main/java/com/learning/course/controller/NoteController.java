@@ -4,6 +4,7 @@ import com.learning.common.entity.Page;
 import com.learning.common.entity.Result;
 import com.learning.common.entity.ResultStatus;
 import com.learning.common.utils.JwtUtil;
+import com.learning.course.client.UserClient;
 import com.learning.course.entity.Note;
 import com.learning.course.service.NoteService;
 import com.github.pagehelper.PageInfo;
@@ -20,9 +21,11 @@ import org.springframework.web.bind.annotation.*;
 public class NoteController {
 
     private final NoteService noteService;
+    private final UserClient userClient;
 
-    public NoteController(NoteService noteService) {
+    public NoteController(NoteService noteService, UserClient userClient) {
         this.noteService = noteService;
+        this.userClient = userClient;
     }
 
     @GetMapping("{id}")
@@ -44,7 +47,10 @@ public class NoteController {
 
     @PostMapping
     public Result<Note> createNote(@RequestBody Note note, @RequestHeader("Authorization") String token) {
-        return Result.of(ResultStatus.SUCCESS, noteService.create(note, JwtUtil.getUsername(token)));
+        Note noteResult = noteService.create(note, JwtUtil.getUsername(token));
+        if (noteResult!=null)
+            userClient.addPointsByUsername(JwtUtil.getUsername(token), 10);
+        return Result.of(ResultStatus.SUCCESS,noteResult );
     }
 
     @PutMapping
