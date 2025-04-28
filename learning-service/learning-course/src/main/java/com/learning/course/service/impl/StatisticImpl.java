@@ -262,7 +262,7 @@ public class StatisticImpl implements IStatistic {
             Map<String, Object> map = new HashMap<>();
             map.put("name", teacherName);
             List <Integer> value= new ArrayList<>();
-            value.add((int) (averageFinishRate * 100));
+            value.add((int) (averageFinishRate ));
             value.add((int) averageQuestionCount);
             value.add((int) averageHotness);
             map.put("value",value );
