@@ -20,5 +20,6 @@ minio:
   cover-picture-bucket-name: cover-pictures
   profile-picture-bucket-name: profile-pictures
   certificate-picture-bucket-name: certificate-pictures
+  roadmap-picture-bucket-name: roadmap-pictures
 gateway:
   address: http://localhost:8080

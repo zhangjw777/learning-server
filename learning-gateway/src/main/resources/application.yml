@@ -75,6 +75,7 @@ spring:
                 - /api/cover-pictures/**  # 封面图片路径
                 - /api/profile-pictures/**  # 头像图片路径
                 - /api/certificate-pictures/**  # 证书图片路径
+                - /api/roadmaps/**  # 路线图路径
         - id: aichat-service # 智能聊天服务路由
           uri: lb://aichat-service
           predicates:
@@ -90,3 +91,4 @@ spring:
                 - /dfs/cover-pictures/**  # 封面存储访问路径
                 - /dfs/profile-pictures/**  # 头像存储访问路径
                 - /dfs/certificate-pictures/** # 证书存储访问路径
+                - /dfs/roadmaps/** # 路线图存储访问路径

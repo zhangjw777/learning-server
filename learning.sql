@@ -186,3 +186,15 @@ create table user_course
     update_time     datetime    not null comment '修改时间'
 );
 
+create table roadmap
+(
+    id          bigint auto_increment comment '主键ID'
+        primary key,
+    name        varchar(20) not null comment '名称',
+    image_url   varchar(100) not null comment '图片链接',
+    category_id int         not null comment '所属分类ID',
+    tags        varchar(100) null comment '标签',
+    description varchar(255) null comment '描述',-- 用逗号分隔的标签字符串，例如 "前端,React,Node.js"
+    create_time datetime    not null comment '创建时间',
+    update_time datetime    not null comment '修改时间'
+)
