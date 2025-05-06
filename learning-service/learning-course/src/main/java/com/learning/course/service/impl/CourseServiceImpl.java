@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 课程服务实现类
@@ -34,6 +35,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
     private final CourseSearchDao courseSearchDao;
     private final CourseViewsServiceImpl courseViewsServiceImpl;
     private final CertificateMapper certificateMapper;
+    private final UserCourseService userCourseService;
 
     @Override
     public Course queryById(Long id) {
@@ -64,7 +66,15 @@ public class CourseServiceImpl extends ServiceImpl<CourseDao, Course> implements
     @Override
     public PageInfo<Course> listByTeacherName(int pageNum, int pageSize, String teacherName) {
         PageHelper.startPage(pageNum, pageSize);
-        return PageInfo.of(courseDao.listByTeacherName(teacherName));
+        List<Course> courses = courseDao.listByTeacherName(teacherName);
+        Map<Long, Long> courseUserCountMap = userCourseService.getCourseUserCountMap();
+        courses.stream().forEach(course -> {
+            Integer viewCounts = courseViewsServiceImpl.queryViewCountsOfCourse(course);
+            course.setViewCounts(viewCounts);
+            Long studentCount = courseUserCountMap.get(course.getId());
+            course.setStudentCount(studentCount == null ? 0 : studentCount);
+        });
+        return PageInfo.of(courses);
     }
 
     @Override

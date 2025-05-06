@@ -105,6 +105,7 @@ public class Course implements Serializable {
     private Integer categoryId;
     @Transient
     private Integer viewCounts;
-
+    @Transient
+    private Long studentCount;
     //@Transient是用于spring data来忽略字段，这里针对es,对于mybatis无效
 }

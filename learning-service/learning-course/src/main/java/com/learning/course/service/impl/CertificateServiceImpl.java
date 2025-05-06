@@ -31,7 +31,6 @@ public class CertificateServiceImpl extends ServiceImpl<CertificateMapper, Certi
 
     private final CertificateMapper certificateMapper;
     private final CourseDao courseDao;
-    private final CourseService courseService;
 
     @Override
     public PageInfo<Certificate> listByUserName(int pageNum, int pageSize, String username) {

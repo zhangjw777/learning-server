@@ -34,9 +34,18 @@ public interface IUserCourseService extends IService<UserCourse> {
     boolean updateUserChapter(Long courseId, Long chapterId, String userName);
 
     /**
+     * 计算课程有多少学生学习过
+     */
+    /**
      * 统计用户课程表 课程用户的个数
      *
      * @return 键：课程id,值：用户个数
      */
     List<Map<String, Long>> statisticUserCourse();
+
+    /**
+     * 获取课程用户数量的Map对象 {课程id:用户数量}
+     * @return Map对象
+     */
+    Map<Long, Long> getCourseUserCountMap();
 }

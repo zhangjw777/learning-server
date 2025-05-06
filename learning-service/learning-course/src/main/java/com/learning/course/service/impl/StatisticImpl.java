@@ -35,14 +35,8 @@ public class StatisticImpl implements IStatistic {
     @Override
     public List<Map<String, Object>> statisticCourseHotness() {
         List<Course> courses = courseDao.list(true, "create_time");
-
-        //获得课程用户数量的Map对象
-        List<Map<String, Long>> result = userCourseService.statisticUserCourse();
-        log.info("result: {}", result.toString());
-        Map<Long, Long> courseUserCountMap = new HashMap<>();//课程id:用户数量
-        for (Map<String, Long> item : result) {
-            courseUserCountMap.put(item.get("courseId"), item.get("userCount"));
-        }
+        //获得课程用户数量的Map对象 {课程id:用户数量}
+        Map<Long, Long> courseUserCountMap = userCourseService.getCourseUserCountMap();
         //将map对象以及课程访问次数进行合并计算,注意不是每个课程都有学生学习，但每个课程都有点击量
         Map<String, Integer> hotnessData = new HashMap<>();
         for (Course course : courses) {
@@ -64,6 +58,8 @@ public class StatisticImpl implements IStatistic {
 
         return hotnessDataList;
     }
+
+
 
     @Override
     public List<Map<String, Object>> statisticCourseFinishRate() {

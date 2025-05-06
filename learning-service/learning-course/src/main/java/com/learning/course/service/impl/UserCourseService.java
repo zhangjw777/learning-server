@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -98,5 +99,17 @@ public class UserCourseService extends ServiceImpl<UserCourseDao, UserCourse> im
     @Override
     public List<Map<String, Long>> statisticUserCourse(){
         return userCourseDao.statisticUserCourse();
+    }
+
+
+    @Override
+    public Map<Long, Long> getCourseUserCountMap() {
+        List<Map<String, Long>> result = this.statisticUserCourse();
+        log.info("result: {}", result.toString());
+        Map<Long, Long> courseUserCountMap = new HashMap<>();//课程id:用户数量
+        for (Map<String, Long> item : result) {
+            courseUserCountMap.put(item.get("courseId"), item.get("userCount"));
+        }
+        return courseUserCountMap;
     }
 }
