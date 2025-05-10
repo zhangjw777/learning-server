@@ -163,15 +163,6 @@ INSERT INTO `user`
 VALUES (1, 'admin', '$2a$10$YmZg6KFPsMVUyWzsxiNgOun7SYoKW1FiAqFvaqnehx2fj0xh5geSa', '张三', '男', 3, 'admin@qq.com',
         '15648768888', 'http://localhost:8080/dfs/profile-pictures/default.jpg', now(), now());
 
-create table user_chapter
-(
-    id         bigint auto_increment comment '用户-章节关系ID'
-        primary key,
-    user_name  varchar(20) not null comment '用户名',
-    chapter_id bigint      not null comment '章节ID',
-    is_completed TINYINT NOT NULL DEFAULT 0 COMMENT '是否已完成该章节 (1:是, 0:否)',
-    completion_time DATETIME NULL COMMENT '章节完成时间'
-);
 
 create table user_course
 (

@@ -76,4 +76,11 @@ public interface FileService {
      * @return 证书地址
      */
     String uploadCertificatePicture(MultipartFile multipartFile) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException;
+
+    /**
+     * 上传路线图
+     * @param multipartFile
+     * @return
+     */
+    String uploadRoadmapPicture(MultipartFile multipartFile) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException;
 }

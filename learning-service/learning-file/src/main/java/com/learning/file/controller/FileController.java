@@ -42,5 +42,9 @@ public class FileController {
     public Result<String> uploadCertificatePicture(@RequestParam MultipartFile multipartFile) throws Exception {
         return Result.of(ResultStatus.SUCCESS, fileService.uploadCertificatePicture(multipartFile));
     }
+    @PostMapping("roadmap-pictures")
+    public Result<String> uploadRoadmapPicture(@RequestParam MultipartFile multipartFile) throws Exception {
+        return Result.of(ResultStatus.SUCCESS, fileService.uploadRoadmapPicture(multipartFile));
+    }
 
 }
